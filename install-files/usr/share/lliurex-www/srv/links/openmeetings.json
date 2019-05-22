@@ -1,0 +1,16 @@
+{
+    "linkid":"lliurexlab",
+    "link":"http://lliurexlab",
+    "icon":"lliurexlab.png",
+    "fonticon":"icon-headphones",
+    "name": {
+        "default":"LliurexLab: Language lab",
+        "valencia":"LliurexLab: Laboratori d'idiomes",
+        "es":"LliurexLab: Laboratorio de idiomas"
+    },
+    "description": {
+        "default":"Language lab based on openmeetings",
+        "valencia":"Laboratori d'idiomes basat en openmeetings",
+        "es":"Laboratorio de idiomas basado en openmeetings"
+    }
+}

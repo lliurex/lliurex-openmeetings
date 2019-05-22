@@ -1,0 +1,209 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*
+
+import os
+import xmlrpclib
+import gi
+gi.require_version('Gtk','3.0')
+gi.require_version('PangoCairo','1.0')
+from gi.repository import Gtk, Gdk, GObject, GLib, PangoCairo, Pango
+import threading
+import sys
+
+import signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+import gettext
+gettext.textdomain('lliurex-openmeetings-remote')
+_ = gettext.gettext
+
+class LORemoteStartup:
+	
+	def __init__(self,ip=None):
+		
+		self.ip=ip
+		
+		if self.ip==None:
+			self.ip="server"
+				
+		
+		self.thread=threading.Thread()
+		self.force_state=True
+		self.start_gui()
+		
+		
+	#def init
+	
+	def start_gui(self):
+		
+		builder=Gtk.Builder()
+		builder.set_translation_domain("lliurex-openmeetings-remote")
+		#glade_path="/srv/svn/trusty/lliurex-openmeetings/trunk/fuentes/client-install-files/usr/share/lliurex-openmeetings-remote/rsrc/lliurex-openmeetings-remote-startup.glade"
+		glade_path="/usr/share/lliurex-openmeetings-remote/rsrc/lliurex-openmeetings-remote-startup.glade"
+		builder.add_from_file(glade_path)
+		
+		self.window=builder.get_object("window1")
+		self.status_label=builder.get_object("status_label")
+		self.status_switch=builder.get_object("status_switch")
+		self.image=builder.get_object("image")
+		
+		
+			
+		self.login_window=builder.get_object("login_window")
+		self.user_entry=builder.get_object("user_entry")
+		self.pwd_entry=builder.get_object("pwd_entry")
+		
+		self.accept_button=builder.get_object("accept_button")
+		self.cancel_button=builder.get_object("cancel_button")
+		self.login_label=builder.get_object("login_label")
+		
+		self.progress_window=builder.get_object("progress_window")
+		self.progressbar=builder.get_object("progressbar")
+		
+		
+		self.window.connect("destroy",Gtk.main_quit)
+		self.login_window.connect("destroy",Gtk.main_quit)
+		self.accept_button.connect("clicked",self.accept_clicked)
+		self.cancel_button.connect("clicked",Gtk.main_quit)
+		
+		self.status_switch.connect("notify::active",self.status_changed)
+		
+		self.pwd_entry.connect("activate",self.accept_clicked)
+		
+		
+		self.login_window.show()
+		
+		Gtk.main()
+		
+	#def start_gui
+	
+	
+	def accept_clicked(self,widget):
+		
+		client=xmlrpclib.ServerProxy("https://%s:9779"%self.ip)
+		user=self.user_entry.get_text()
+		password=self.pwd_entry.get_text()
+		
+		ret=client.validate_user(user,password)
+		
+		
+		if ret[0]:
+			
+			letsgo=False
+			
+			for group in ["adm","admins","teachers"]:
+				if group in ret[1]:
+					letsgo=True
+					break
+			
+			if letsgo:
+				self.login_window.hide()
+				self.user_info=(user,password)
+				
+				client=xmlrpclib.ServerProxy("https://%s:9779"%self.ip)
+				ret=client.remote_service_is_running(self.user_info,"LliurexOpenmeetings")
+				if ret[1]==-1:
+					self.open_dialog("Lliurex Lab",_("Lliurex Lab service is not initialized"))
+					sys.exit(0)
+				self.service_status=ret[0]
+				self.status_switch.set_active(self.service_status)
+				
+				
+				
+				if self.service_status:
+					self.status_label.set_text(_("Lliurex Lab service is running"))
+					self.image.set_from_icon_name("user-available",Gtk.IconSize.BUTTON)
+				else:
+					self.status_label.set_text(_("Lliurex Lab service is stopped"))
+					self.image.set_from_icon_name("user-busy",Gtk.IconSize.BUTTON)
+				self.force_state=False
+				
+				self.window.show()
+				
+				
+			else:
+			
+				self.login_label.set_markup("<span foreground='red'>"+_("User is not allowed to use this application")+"</span>")
+			
+		else:
+			
+			self.login_label.set_markup("<span foreground='red'>"+_("User or password not valid")+"</span>")
+		
+		
+	#def accept_clicked
+	
+	def status_changed(self,widget,state):
+		
+		
+		if not self.force_state:
+			widget.get_active()
+			
+			self.progress_window.show()
+			GLib.timeout_add(50,self.pulsating)
+			self.thread=threading.Thread(target=self.enable_service,args=(widget.get_active(),))
+			self.thread.daemon=True
+			self.thread.start()
+			
+		else:
+			self.force_state=False
+		
+	#def status_changed
+	
+	def enable_service(self,state):
+		
+		c=xmlrpclib.ServerProxy("https://%s:9779"%self.ip)
+		
+		if state:
+			c.remote_service_start(self.user_info,"LliurexOpenmeetings")
+			self.service_status=True
+		else:
+			c.remote_service_stop(self.user_info,"LliurexOpenmeetings")[0]
+			self.service_status=False
+		
+		
+		
+		
+	#def enable_service
+	
+	def pulsating(self):
+		
+		self.progressbar.pulse()
+		
+		if not self.thread.is_alive():
+			self.progress_window.hide()
+			if self.service_status:
+				self.status_label.set_text(_("Lliurex Lab service is running"))
+				self.image.set_from_icon_name("user-available",Gtk.IconSize.BUTTON)
+			else:
+				self.status_label.set_text(_("Lliurex Lab service is stopped"))
+				self.image.set_from_icon_name("user-busy",Gtk.IconSize.BUTTON)
+		
+		return self.thread.is_alive()
+		
+	def open_dialog(self,title,text,show_cancel=False):
+
+		label = Gtk.Label()
+		label.set_markup(text)
+		if show_cancel:
+			dialog = Gtk.Dialog(title, None, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT,Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL))
+		else:
+			dialog = Gtk.Dialog(title, None, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
+		hbox = Gtk.HBox()
+		img=Gtk.Image.new_from_icon_name("emblem-important",Gtk.IconSize.DIALOG)
+		hbox.pack_start(img,True,True,5)
+		hbox.pack_start(label,True,True,10)
+		hbox.show_all()
+		dialog.vbox.pack_start(hbox,True,True,10)
+		dialog.set_border_width(6)
+		response = dialog.run()
+		dialog.destroy()
+		return response
+		
+	#def open_dialog
+	
+#class LORemoteStartup
+
+if __name__=="__main__":
+	
+	lo=LORemoteStartup()
+	

@@ -1,0 +1,142 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: lliurex-openmeetings-setup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-01 09:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: setup-gui/interface.glade:202
+msgid "Admin password"
+msgstr "Contrasenya de l'administrador"
+
+#: setup-gui/setup-gui.cpp:178
+msgid "Admin password should have at least, four characters"
+msgstr ""
+"La contrasenya de l'administrador ha de tindre almenys quatre caràcters."
+
+#: setup-gui/setup-gui.cpp:179
+msgid "Admin passwords do not match"
+msgstr "Les contrasenyes d'administrador no són idèntiques."
+
+#: setup-gui/interface.glade:162
+msgid "Admin user"
+msgstr "Usuari administrador"
+
+#: setup-gui/setup-gui.cpp:176
+msgid "Admin user should have at least, four characters"
+msgstr "L'usuari administrador ha de tindre almenys quatre caràcters."
+
+#: setup-gui/interface.glade:70
+msgid "Database password"
+msgstr "Contrasenya per a la base de dades"
+
+#: setup-gui/setup-gui.cpp:173
+msgid "Database password should have at least, four characters"
+msgstr ""
+"La contrasenya per a la base de dades ha de tindre almenys quatre caràcters."
+
+#: setup-gui/setup-gui.cpp:174
+msgid "Database passwords do not match"
+msgstr "Les contrasenyes per a la base de dades no són idèntiques."
+
+#: setup-gui/interface.glade:30
+msgid "Database user"
+msgstr "Usuari per a la base de dades"
+
+#: setup-gui/setup-gui.cpp:171
+msgid "Database user should have at least, four characters"
+msgstr "L'usuari per a la base de dades ha de tindre almenys quatre caràcters."
+
+#: setup-gui/interface.glade:329
+msgid "Initialize"
+msgstr "Inicialitza'l"
+
+#: setup-gui/setup-gui.cpp:187
+msgid "Invalid email address"
+msgstr "Adreça de correu invàlida"
+
+#: setup-gui/interface.glade:6 setup-gui/interface.glade:353
+#: setup-gui/interface.glade:430
+msgid "LliureX Openmeeting"
+msgstr "LliureX OpenMeetings"
+
+#: setup-gui/interface.glade:452
+msgid ""
+"Openmeeting service is being initialized,\n"
+"please wait..."
+msgstr "El servici d'OpenMeetings s'està inicialitzant. Espereu..."
+
+#: setup-gui/interface.glade:389
+msgid "Process completed successfully!"
+msgstr "Tot ha anat bé."
+
+#: setup-gui/interface.glade:242
+msgid "Repeat password"
+msgstr "Torneu a introduir la contrasenya"
+
+#: setup-gui/interface.glade:110
+msgid "Repeat password\t"
+msgstr "Torneu a introduir la contrasenya\t"
+
+#: service-gui/service-gui.cpp:227
+msgid "Running"
+msgstr "En execució"
+
+#: service-gui/service-gui.cpp:123
+msgid "Starting..."
+msgstr "S'està iniciant..."
+
+#: service-gui/interface.glade:61
+msgid "Stop"
+msgstr "Para"
+
+#: service-gui/service-gui.cpp:131
+msgid "Stoping..."
+msgstr "S'està parant..."
+
+#: service-gui/service-gui.cpp:232
+msgid "Stopped"
+msgstr "S'ha parat"
+
+#: setup-gui/setup-gui.cpp:247
+msgid ""
+"There was an error while setting openmeetings up, check output for details"
+msgstr ""
+"Hi ha hagut un error mentres s'iniciava l'OpenMeetings; comproveu l'eixida "
+"per a veure més detalls."
+
+#: setup-gui/interface.glade:176
+msgid "admin"
+msgstr "administrador"
+
+#: setup-gui/interface.glade:282
+msgid "email\t"
+msgstr "correu electrònic\t"
+
+#: service-gui/interface.glade:25
+msgid "lliurex openmeetings service manager"
+msgstr "Administrador del servici del LliureX OpenMeetings"
+
+#: setup-gui/interface.glade:44
+msgid "openmeetingsuser"
+msgstr "openmeetingsuser"
+
+#: setup-gui/setup-gui.cpp:170
+msgid "root is not a valid database user"
+msgstr "'root' no és un usuari vàlid per a la base de dades"
+
+#: setup-gui/interface.glade:492
+msgid "status"
+msgstr "estat"

@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-01 09:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: setup-gui/interface.glade:202
+msgid "Admin password"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:178
+msgid "Admin password should have at least, four characters"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:179
+msgid "Admin passwords do not match"
+msgstr ""
+
+#: setup-gui/interface.glade:162
+msgid "Admin user"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:176
+msgid "Admin user should have at least, four characters"
+msgstr ""
+
+#: setup-gui/interface.glade:70
+msgid "Database password"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:173
+msgid "Database password should have at least, four characters"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:174
+msgid "Database passwords do not match"
+msgstr ""
+
+#: setup-gui/interface.glade:30
+msgid "Database user"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:171
+msgid "Database user should have at least, four characters"
+msgstr ""
+
+#: setup-gui/interface.glade:329
+msgid "Initialize"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:187
+msgid "Invalid email address"
+msgstr ""
+
+#: setup-gui/interface.glade:6 setup-gui/interface.glade:353
+#: setup-gui/interface.glade:430
+msgid "LliureX Openmeeting"
+msgstr ""
+
+#: setup-gui/interface.glade:452
+msgid ""
+"Openmeeting service is being initialized,\n"
+"please wait..."
+msgstr ""
+
+#: setup-gui/interface.glade:389
+msgid "Process completed successfully!"
+msgstr ""
+
+#: setup-gui/interface.glade:242
+msgid "Repeat password"
+msgstr ""
+
+#: setup-gui/interface.glade:110
+msgid "Repeat password\t"
+msgstr ""
+
+#: service-gui/service-gui.cpp:227
+msgid "Running"
+msgstr ""
+
+#: service-gui/service-gui.cpp:123
+msgid "Starting..."
+msgstr ""
+
+#: service-gui/interface.glade:61
+msgid "Stop"
+msgstr ""
+
+#: service-gui/service-gui.cpp:131
+msgid "Stoping..."
+msgstr ""
+
+#: service-gui/service-gui.cpp:232
+msgid "Stopped"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:247
+msgid ""
+"There was an error while setting openmeetings up, check output for details"
+msgstr ""
+
+#: setup-gui/interface.glade:176
+msgid "admin"
+msgstr ""
+
+#: setup-gui/interface.glade:282
+msgid "email\t"
+msgstr ""
+
+#: service-gui/interface.glade:25
+msgid "lliurex openmeetings service manager"
+msgstr ""
+
+#: setup-gui/interface.glade:44
+msgid "openmeetingsuser"
+msgstr ""
+
+#: setup-gui/setup-gui.cpp:170
+msgid "root is not a valid database user"
+msgstr ""
+
+#: setup-gui/interface.glade:492
+msgid "status"
+msgstr ""

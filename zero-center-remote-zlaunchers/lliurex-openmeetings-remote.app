@@ -1,0 +1,14 @@
+Name=lliurex-openmeetings-remote-service
+Name[en]=LliureX Lab service manager
+Name[es]=Administrador del servicio remoto del laboratorio de idiomas
+Name[qcv]=Administrador del servici remot del laboratori d'idiomes
+Name[ca_ES]=Administrador del servici remot de laboratori d'idiomes
+Comment=LliureX Lab service manager
+Comment[en]=LliurexLab installer
+Comment[es]=Administrador del servicio remoto del laboratorio de idiomas
+Comment[qcv]=Administrador del servici remot del laboratori d'idiomes
+Comment[ca_ES]=Administrador del servici remot del laboratori d'idiomes
+Icon=lliurex-lab-ret
+Category=Services
+ScriptPath=lliurex-openmeetings-remote.zmd
+Groups=sudo;admins;teachers

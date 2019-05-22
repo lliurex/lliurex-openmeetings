@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+lliurex-openmeetings-remote-startup
+
+
+exit 0
+

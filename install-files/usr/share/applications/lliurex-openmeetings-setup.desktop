@@ -1,0 +1,20 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=lliurex-openmeeting-setup
+GenericName=lliurex-openmeeting-setup
+Name[es]=Configurador de LliureX Openmeetings
+Name[ca_ES@valencia]=Configurador de LliureX Openmeetings
+Name[ca]=Configurador de LliureX Openmeetings
+Name[ca_ES.UTF-8@valencia]=Configurador de LliureX Openmeetings
+Comment=App to configure lliurex-openmeetings
+Comment[es]=Aplicación para configurar lliurex-openmeetings. 
+Comment[ca]=Aplicació per a configurar lliurex-openmeetings
+Comment[ca_ES@valencia]=Aplicació per a configurar lliurex-openmeetings
+Comment[ca_ES.UTF-8@valencia]=Aplicació per a configurar lliurex-openmeetings
+Exec=pe lliurex-openmeetings.zmd
+Icon=lliurex-openmeetings-setup
+Terminal=false
+Type=Application
+NoDisplay=True
+Categories=GNOME;Application;Utility;

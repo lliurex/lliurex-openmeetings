@@ -1,0 +1,543 @@
+#!/usr/bin/python -u
+
+import MySQLdb as mdb
+import sys
+
+import os
+import shutil
+import ConfigParser
+
+from jinja2 import Environment
+from jinja2.loaders import FileSystemLoader
+from jinja2 import Template
+import xmlrpclib
+
+VAR_DIR="/var/lib/openmeetings/"
+BASE_DIR="/usr/share/lliurex-openmeetings/"
+FILES_DIR="lliurex-files/"
+TAR_FILE=BASE_DIR+"apache-openmeetings-3.0.7.tar.gz"
+MYSQL_CONNECTOR=BASE_DIR+FILES_DIR+"mysql-connector-java-5.1.30-bin.jar"
+MENUBAR_JS=BASE_DIR+FILES_DIR+"jquery.ui.menubar.js"
+N4D_HOOK=BASE_DIR+"n4d-hooks/openmeetings.py"
+SERVICE_LAUNCHER=BASE_DIR+FILES_DIR+"lliurex-openmeetings-service"
+JODCONVERTER_PATH=BASE_DIR+"jodconverter/"
+
+INDEX_FILE=BASE_DIR+FILES_DIR+"lliurexlab.conf"
+
+ORIGINAL_WWW_FILE="/etc/apache2/sites-available/lliurexlab.conf"
+DIVERTED_WWW_FILE="/etc/apache2/sites-available/lliurexlab.diverted"
+
+class LliurexOpenmeetings:
+	
+	def __init__(self):
+		
+		pass
+		
+	#def __init__
+	
+	def get_n4d_key(self):
+		
+		try:
+			
+			f=open("/etc/n4d/key")
+			self.n4d_key=f.readline().strip("\n")
+			f.close()
+			
+		except:
+			print("[!] You need root privileges [!]")
+			sys.exit(1)
+
+
+	#def get_n4d_key
+	
+	def create_var_dir(self,dir=None):
+		
+		print("* Creating /var dir ...")
+		
+		if dir==None:
+			dir=VAR_DIR
+		
+		if os.path.exists(dir):
+			os.system("rm -rf " + dir)
+		
+		os.makedirs(dir)
+			
+	#def create_var_dir
+	
+	def extract_tar(self,tar_file=None,dest_dir=None):
+		
+		print("* Extracting openmeetings tar ...")
+		
+		if tar_file==None:
+			tar_file=TAR_FILE
+			
+		if dest_dir==None:
+			dest_dir=VAR_DIR
+		
+		cmd="tar -xvzf %s -C %s 1>/dev/null"%(tar_file,dest_dir)
+		os.system(cmd)
+		
+	#def extract_tar
+	
+	def copy_mysql_connector(self,dest_dir):
+		
+		print("* Copying mysql connector ...")
+		
+		shutil.copy(MYSQL_CONNECTOR,dest_dir)
+		
+	#def extract_mysql_connector
+	
+	def create_db_user(self):
+	
+		print("* Creating mysql user ...")
+		
+		db_pass=self.template["db_pass"]
+		db_user=self.template["db_user"]
+		cmd='mysql -uroot -p$(mysql_root_passwd -g) -e "GRANT ALL PRIVILEGES ON openmeetings.* TO \'%s\'@localhost IDENTIFIED BY \'%s\'"'%(db_user,db_pass)
+		os.system(cmd)
+		
+	#def generate_user
+	
+	def fix_persistence_file(self,file_path=None):
+		
+		print("* Fixing persiscence file ...")
+		
+		
+		
+		if file_path==None:
+			file_path=VAR_DIR+"webapps/openmeetings/WEB-INF/classes/META-INF/mysql_persistence.xml"
+		
+		f=open(file_path)
+		content="".join(f.readlines())
+		f.close()
+		
+		content=content.replace("Username=root","Username="+self.template["db_user"])
+		content=content.replace("Password=","Password="+self.template["db_pass"])
+		file_path=VAR_DIR+"webapps/openmeetings/WEB-INF/classes/META-INF/persistence.xml"
+		
+		f=open(file_path,"w")
+		f.write(content)
+		f.close()
+		
+		cmd="chmod 600 %s"%(file_path)
+		os.system(cmd)
+		
+	#def fix_persistence_file
+	
+	def fix_private_rooms(self,path=None):
+		
+		print("* Fixing private rooms ...")
+		
+		if path==None:
+			path=VAR_DIR+"webapps/openmeetings/js/jquery.ui.menubar.js"	
+		
+		shutil.copy(MENUBAR_JS,path)
+		
+		
+		
+	#def fix_private_rooms
+	
+	def remove_private_rooms_applet(self):
+		
+		print("* Removing private rooms applet ...")
+		
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		query="UPDATE configuration SET conf_value='0' WHERE ID=39"
+		cur.execute(query)
+		con.commit()
+		
+	#def remove_private_rooms_applet
+	
+	def init_db(self):
+		
+		print("* Initializing db ...")
+		user=self.template["admin"]
+		password=self.template["password"]
+		email=self.template["email"]
+		db_user=self.template["db_user"]
+		db_pass=self.template["db_pass"]
+		
+		cmd='mysql -uroot -p$(mysql_root_passwd -g) -e "drop database IF EXISTS openmeetings"'
+		os.system(cmd)
+		cmd='mysql -uroot -p$(mysql_root_passwd -g) -e "create database openmeetings DEFAULT CHARACTER SET \"utf8\""'
+		os.system(cmd)
+		
+		cmd=VAR_DIR+"admin.sh -i -v -tz Europe/Madrid -email %s -group webbase -user %s --smtp-server localhost --db-type mysql --db-name openmeetings --email-auth-user noreply@webbase-design.de --password %s --system-email-address noreply@lliurex.net --db-user %s --db-host localhost --db-pass %s 1>/dev/null 2>/dev/null"%(email,user,password,db_user,db_pass)
+		os.system(cmd)
+		
+		
+	#def init_db
+	
+	def fix_bin_paths(self):
+		
+		print("* Fixing binary paths ...")
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		query=[]
+		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=18")
+		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=19")
+		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=20")
+		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=21")
+		query.append("UPDATE configuration SET conf_value='%s' WHERE ID=23"%JODCONVERTER_PATH)
+		
+		for q in query:
+			#print("\t"+q+ " ...")
+			cur.execute(q)
+			
+		con.commit()
+		
+	#def fix_bin_paths
+	
+	
+	def fix_login_zone(self):
+		
+		print("* Fixing login landing zone ...")
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		query=[]
+		
+		query.append("UPDATE configuration SET conf_value='rooms/public' WHERE ID=53")
+		
+		for q in query:
+			#print("\t"+q+ " ...")
+			cur.execute(q)
+			
+		con.commit()
+		
+	#def fix_bin_paths
+	
+	def fix_login_combobox(self):
+		
+		
+		print("* Fixing login combobox ...")
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		query=[]
+		
+		query.append("UPDATE configuration SET conf_value='1' WHERE ID=51")
+		
+		for q in query:
+			#print("\t"+q+ " ...")
+			cur.execute(q)
+			
+		con.commit()
+		
+	#def fix_bin_paths	
+
+
+
+	
+	def add_lliurex_group(self):
+		
+		print("* Adding LliureX group ...")
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		#query="DELETE from organisation;"
+		#cur.execute(query)
+		query="INSERT INTO organisation(deleted,insertedby,name,starttime) VALUES(0,1,'Lliurex Default Group',NOW())"
+		cur.execute(query)
+		con.commit()
+		
+	#def add_lliurex_group
+	
+	def remove_default_rooms(self):
+		
+		print("* Removing default rooms ...")
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		query="DELETE from room;"
+		cur.execute(query)
+		con.commit()
+		
+	#def remove_default_rooms
+	
+	def add_llx_room(self):
+		
+		print("* Adding LLX room ...")
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		
+		cur.execute("SELECT MAX(id) from organisation WHERE name='Lliurex Default Group'")
+		data=cur.fetchone()
+		organization_id=str(data[0])		
+		
+		query="INSERT INTO room (allow_font_styles, allow_recording, allow_user_questions, appointment, auto_video_select, chat_moderated, chat_opened, comment_field, deleted, files_opened, hide_actions_menu, hide_activities_and_actions, hide_chat, hide_files_explorer, hide_screen_sharing, hide_top_bar, hide_whiteboard, is_audio_only, is_closed, isdemoroom, ismoderatedroom, ispublic, name, numberOfPartizipants, show_microphone_status, sip_enabled, starttime, wait_for_recording, roomtypes_id) VALUES(1,0,1,	0,0,	1,1,'',0,0,0,0,0,0,0,0,0,0,	0,0,0,1,'LliureX Room',32,0,0,NOW(),0,1)"
+		
+		cur.execute(query)
+		con.commit()	
+		
+		cur.execute("SELECT MAX(id) from room WHERE name='LliureX Room'")
+		data=cur.fetchone()
+		room_id=str(data[0])		
+		
+		query="INSERT INTO rooms_organisation(deleted,rooms_id,organisation_id) VALUES(0,%s,%s)"%(room_id,organization_id)
+		cur.execute(query)
+		con.commit()
+		
+		
+		
+	#def adding_llx_room
+	
+	def parse_template(self,f):
+		
+		config = ConfigParser.ConfigParser()
+		config.optionxform=str
+		config.read(f)
+		
+		self.template={}
+		try:
+
+			self.template["db_user"]=config.get("openmeetings","db_user")
+			self.template["db_pass"]=config.get("openmeetings","db_pass")
+			self.template["admin"]=config.get("openmeetings","admin")
+			self.template["password"]=config.get("openmeetings","password")
+			self.template["email"]=config.get("openmeetings","email")
+			
+			
+			print("* Template parsed succesfuly.")
+			#print(self.template)
+			return True
+		except Exception as e:
+			print("[!] Error:",e)
+			self.usage()
+		
+	#def parse_template
+	
+	def configure_ldap(self,project_dir=None):
+		
+		print("* Configuring ldap bind ...")
+		
+		if project_dir==None:
+			project_dir=VAR_DIR
+			
+		dest_file=project_dir+"/webapps/openmeetings/conf/lliurex_ldap.cfg"
+		
+		template=BASE_DIR+FILES_DIR
+		tpl_env = Environment(loader=FileSystemLoader(template))
+		ldap_template = tpl_env.get_template("lliurex_ldap.cfg")
+		
+		client=xmlrpclib.ServerProxy("https://localhost:9779")
+		vars=client.get_variable_list("","VariablesManager",["CLIENT_LDAP_URI_NOSSL","LDAP_BASE_DN"])
+		#vars["CLIENT_LDAP_URI"]=vars["CLIENT_LDAP_URI_NOSSL"].replace("=",":")
+		vars["CLIENT_LDAP_URI"]=vars["CLIENT_LDAP_URI_NOSSL"]
+		#vars["LDAP_BASE_DN"]=vars["LDAP_BASE_DN"].replace("=",":")
+		vars["LDAP_BASE_DN"]=vars["LDAP_BASE_DN"]
+		
+		f=open("/etc/lliurex-secrets/passgen/ldap.secret")
+		vars["LDAP_PASSWORD"]=f.readline().strip("\n")
+		f.close()
+		
+		content = ldap_template.render(vars).encode('UTF-8')
+		
+		f=open(dest_file,"w")
+		f.write(content)
+		f.close()
+		
+		os.system("chmod 600 %s"%dest_file)
+		
+		
+		user=self.template["db_user"]
+		password=self.template["db_pass"]
+		
+		con=mdb.connect('localhost',user,password,"openmeetings")
+		cur=con.cursor()
+		
+		query=[]
+		
+		query.append("INSERT INTO `ldapconfig` VALUES (NULL,'\0',NULL,'lliurex_ldap.cfg','\0',NULL,NOW(),'','LliureX LDAP Configuration',NULL,1,NULL)")
+		for q in query:
+			#print("\t"+q+ " ...")
+			cur.execute(q)
+			
+		con.commit()
+		
+		
+	#def configure_ldap
+	
+	def fix_service_launcher(self,dir=None):
+		
+		print("* Adding service launcher script ...")
+		
+		if dir==None:
+			dir=VAR_DIR
+			
+		f=open("/usr/share/lliurex-openmeetings/lliurex-files/lliurex-openmeetings-service")
+		lines=f.readlines()
+		f.close()
+		
+		f=open("/usr/sbin/lliurex-openmeetings-service","w")
+		for line in lines:
+			if "%%RED5_HOME%%" in line:
+				line=line.replace("%%RED5_HOME%%",dir)
+			f.write(line)
+			
+		f.close()
+		
+		os.system("chmod +x /usr/sbin/lliurex-openmeetings-service")
+		
+		
+	#def fix_service_launcher
+	
+	def add_current_ldap_users(self):
+		
+		print("* Adding current LDAP users ...")
+		
+		c=xmlrpclib.ServerProxy("https://localhost:9779")
+		c.add_current_ldap_users(self.n4d_key,"LliurexOpenmeetings")
+		
+		
+	#def add_ldap_users
+	
+	def add_n4d_hooks(self):
+		
+		print("* Adding N4D hooks ...")
+		path="/usr/share/n4d/hooks/openmeetings/"
+		
+		if not os.path.exists(path):
+			os.mkdir(path)
+			
+		if os.path.exists(path+"openmeetings.py"):
+			os.remove(path+"openmeetings.py")
+			
+		shutil.copy(N4D_HOOK,path)
+		
+	#def configure_n4d_hooks
+	
+	def mysql_service_init(self):
+		
+		print("* Initializing mysql root passwd (if needed) ...")
+		
+		os.system("sudo mysql_root_passwd -i")
+		
+	#def mysql_service_init
+	
+	def add_index_diversion(self):
+		
+		
+		if not os.path.exists(DIVERTED_WWW_FILE):
+			
+			if os.path.exists(ORIGINAL_WWW_FILE):
+			
+				print("* Diverting index file ...")
+			
+				cmd="dpkg-divert --package lliurex-openmeetings --rename --quiet --add --divert  %s %s"%(DIVERTED_WWW_FILE,ORIGINAL_WWW_FILE)
+				os.system(cmd)
+				shutil.copy(INDEX_FILE,ORIGINAL_WWW_FILE)
+				
+				print("* Reloading apache ...")
+				os.system("service apache2 reload")
+		
+		
+	#def add_index_diversion
+	
+	def parse_args(self,args):
+		
+		available=["--template","-t"]
+		
+		try:
+			
+			if args[0] not in available:
+				self.usage()
+
+			
+			for i in range(0,len(args)):
+				if args[i] in ["--template","-t"]:
+					self.parse_template(args[i+1])
+					i+=2
+			
+				if i>len(args):
+					break
+		except Exception as e:
+			
+			self.usage()
+		
+
+
+		try:
+			self.get_n4d_key()
+			self.create_var_dir()
+			self.extract_tar()
+			self.copy_mysql_connector(VAR_DIR+"webapps/openmeetings/WEB-INF/lib/")
+			self.fix_persistence_file()
+			self.fix_private_rooms()
+			self.add_n4d_hooks()
+			self.mysql_service_init()
+			self.create_db_user()
+			self.init_db()
+			self.fix_bin_paths()
+			self.remove_private_rooms_applet()
+			self.remove_default_rooms()
+			self.fix_login_zone()
+			self.fix_login_combobox()
+			self.configure_ldap()
+			self.add_lliurex_group()
+			self.add_llx_room()
+			self.add_current_ldap_users()
+			self.fix_service_launcher()
+			self.add_index_diversion()
+			
+			sys.exit(0)
+		except Exception as e:
+			print "[ERROR]",e
+			sys.exit(1)
+			
+		
+	#def parse_args
+	
+	def usage(self):
+		
+		print("")
+		print("USAGE: lliurex-openmeetings --template|-t TEMPLATE_FILE")
+		print("")
+		print("Template content:\n")
+		print("[openmeetings]")
+		print("db_user=user")
+		print("db_pass=password")
+		print("admin=user")
+		print("password=password")
+		print("email=uno@dos.com")
+		print("")
+		
+		sys.exit(0)
+		
+		
+	#def usage
+	
+#class LliurexOpenmeetings
+
+
+
+if __name__=="__main__":
+	
+	lom=LliurexOpenmeetings()
+	lom.parse_args(sys.argv[1:])
+	
+	

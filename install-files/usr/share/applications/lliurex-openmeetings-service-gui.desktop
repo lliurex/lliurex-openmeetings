@@ -1,0 +1,20 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=lliurex-openmeeting-service administrator
+GenericName=lliurex-openmeeting-service-gui
+Name[es]=Administrador servicio LliureX Openmeetings
+Name[ca_ES@valencia]=Administrador servici LliureX Openmeetings
+Name[ca]=Administrador servici LliureX Openmeetings
+Name[ca_ES.UTF-8@valencia]=Administrador servici LliureX Openmeetings
+Comment=App to enable/disable lliurex-openmeetings service
+Comment[es]=Aplicación para activar/desactivar lliurex-openmeetings. 
+Comment[ca]=Aplicació per a activar/desactivar lliurex-openmeetings
+Comment[ca_ES@valencia]=Aplicació per a activar/desactivar lliurex-openmeetings
+Comment[ca_ES.UTF-8@valencia]=Aplicació per a activar/desactivar lliurex-openmeetings
+Exec=pe lliurex-openmeetings-service.zmd
+Icon=lliurex-openmeetings-service
+Terminal=false
+Type=Application
+NoDisplay=True
+Categories=GNOME;Application;Utility;
