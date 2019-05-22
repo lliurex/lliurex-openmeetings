@@ -1,0 +1,260 @@
+lliurex-openmeetings (0.34) bionic; urgency=medium
+
+  * Ported to bionic
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 22 May 2019 17:47:13 +0200
+
+lliurex-openmeetings (0.33) xenial; urgency=medium
+
+  * Adding sudo group
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 29 Mar 2019 11:34:42 +0100
+
+lliurex-openmeetings (0.32) xenial; urgency=medium
+
+  * Fixed prerm script
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 02 May 2018 13:39:09 +0200
+
+lliurex-openmeetings (0.31) xenial; urgency=medium
+
+  * Migrated to EPI
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Mon, 30 Apr 2018 13:45:46 +0200
+
+lliurex-openmeetings (0.30) xenial; urgency=medium
+
+  * Updated categorization in zero-center
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 27 Apr 2018 13:26:08 +0200
+
+lliurex-openmeetings (0.29-lliurex10) xenial; urgency=medium
+
+  * Removed deprecated locale
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 22 Jun 2017 09:17:00 +0200
+
+lliurex-openmeetings (0.29-lliurex9) xenial; urgency=medium
+
+  * Fix translations in installer and remote service commands
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 16 Jun 2017 09:04:02 +0200
+
+lliurex-openmeetings (0.29-lliurex8) xenial; urgency=medium
+
+   Metainfo changed to installer package* 
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 31 May 2017 13:30:31 +0200
+
+lliurex-openmeetings (0.29-lliurex7) xenial; urgency=medium
+
+  * Added metainfo 
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 31 May 2017 10:33:58 +0200
+
+lliurex-openmeetings (0.29-lliurex6) xenial; urgency=medium
+
+  * Fix ldap configuration
+  * Fix ldap user upload
+  * Fix general configuration
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 31 May 2017 08:31:37 +0200
+
+lliurex-openmeetings (0.29-lliurex5) xenial; urgency=medium
+
+  * Add desktops to show icons in plank
+  * Add valencian translations to zmd setup
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Fri, 05 May 2017 10:28:45 +0200
+
+lliurex-openmeetings (0.29-lliurex4) xenial; urgency=medium
+
+  * Fixed dependencies of packages in control file
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 28 Nov 2016 08:08:39 +0100
+
+lliurex-openmeetings (0.29-lliurex3) xenial; urgency=medium
+
+  *Added provides lliurex-openmeetings-common to lliurex-openmeetings-installer 
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 23 Nov 2016 17:06:02 +0100
+
+lliurex-openmeetings (0.29-lliurex2) xenial; urgency=medium
+
+  * Fixed dependencies for package lliurex-openmeetings-installer
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 23 Nov 2016 09:47:53 +0100
+
+lliurex-openmeetings (0.29-lliurex1) xenial; urgency=medium
+
+  * Fixed debian control file
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 22 Nov 2016 15:00:10 +0100
+
+lliurex-openmeetings (0.29) xenial; urgency=medium
+
+  * Zomando lliurex-openmeetings.zmd now also installs openmeetings if needed
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 22 Nov 2016 12:32:48 +0100
+
+lliurex-openmeetings (0.28-lliurex2) xenial; urgency=medium
+
+  * Fixed lliurex-openmeetings-remote-startup headers
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 29 Jun 2016 13:14:06 +0200
+
+lliurex-openmeetings (0.28-lliurex1) xenial; urgency=medium
+
+  * Fixed initial database creation
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Wed, 17 Feb 2016 13:51:05 +0100
+
+lliurex-openmeetings (0.28) xenial; urgency=medium
+
+  * First release to xenial
+  * Fixed depends (llxcfg-runtime)
+  * Fixed require versión of Gtk and PangoCairo (lliurex-openmeetings-remote-startup)
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Mon, 15 Feb 2016 14:42:28 +0100
+
+lliurex-openmeetings (0.25) trusty; urgency=high
+
+  * Fix a bug in start/stop service process
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Mon, 23 Nov 2015 13:15:43 +0100
+
+lliurex-openmeetings (0.24) trusty; urgency=high
+
+  [ Hector Garcia Huerta ]
+  * Redistributed  zero-center files
+
+  [ Juan Ramon Pelegrina ]
+  * New remote service zero-center banner 
+   
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Mon, 23 Nov 2015 13:12:42 +0100
+
+lliurex-openmeetings (0.23) trusty; urgency=high
+
+  * Fixed startup launch
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 23 Oct 2015 12:59:13 +0200
+
+lliurex-openmeetings (0.22) trusty; urgency=high
+
+  * Fixed IP on remote initialization
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 06 Jul 2015 12:39:42 +0200
+
+lliurex-openmeetings (0.21) trusty; urgency=high
+
+  * Adding functionality to initialize and start openmeetings remotely
+  * Adding new package containing gui to start service remotely
+  * Rsrc moved to common package
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 06 Jul 2015 11:58:27 +0200
+
+lliurex-openmeetings (0.19) trusty; urgency=high
+
+  * Fixed apache configuration
+  * Fixed service restart
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 07 Nov 2014 11:06:51 +0100
+
+lliurex-openmeetings (0.18) trusty; urgency=high
+
+  * Trusty release
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Tue, 01 Jul 2014 12:51:39 +0200
+
+lliurex-openmeetings (0.17) precise; urgency=high
+
+  * Updated postinst to not fail 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Tue, 01 Jul 2014 12:50:22 +0200
+
+lliurex-openmeetings (0.16) precise; urgency=low
+
+  * Updated translations
+  * Setup checks for a valid email format
+
+ -- Enrique Medina Gremaldos <lliurex_devel4@edu.gva.es>  Tue, 01 Jul 2014 10:20:04 +0200
+
+lliurex-openmeetings (0.15) precise; urgency=high
+
+  * Fixed mysql user creation
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 24 Jun 2014 17:58:51 +0200
+
+lliurex-openmeetings (0.14) precise; urgency=high
+
+  * Fixed disabled switch after service initialization
+
+ -- Enrique Medina Gremaldos <lliurex_devel4@edu.gva.es>  Mon, 23 Jun 2014 11:14:40 +0200
+
+lliurex-openmeetings (0.13) precise; urgency=high
+
+  * Updated openmeetings postinstall to solve the 
+    removal problem from /var/www/srv link
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Fri, 20 Jun 2014 10:02:48 +0200
+
+lliurex-openmeetings (0.10) precise; urgency=high
+
+  * Updated link json path
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 18 Jun 2014 12:52:34 +0200
+
+lliurex-openmeetings (0.9) precise; urgency=high
+
+  * Fixed valencian app translation
+  * Added apache2 reload when initializing
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 18 Jun 2014 11:39:31 +0200
+
+lliurex-openmeetings (0.8) precise; urgency=high
+
+  * DUMMY UPGRADE
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 18 Jun 2014 11:37:42 +0200
+
+lliurex-openmeetings (0.7) precise; urgency=high
+
+  * Added link at server page 
+  * Added zmds
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Wed, 11 Jun 2014 13:35:21 +0200
+
+lliurex-openmeetings (0.6) precise; urgency=high
+
+  * Added flag
+  * Added guis at zerocenter
+  * Added translation
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Tue, 10 Jun 2014 14:59:27 +0200
+
+lliurex-openmeetings (0.4) precise; urgency=high
+
+  * Fixed jodconverter 
+  * Added GUIs
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 30 May 2014 12:18:34 +0200
+
+lliurex-openmeetings (0.3) precise; urgency=high
+
+  * Supports user deletion
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 29 May 2014 17:22:24 +0200
+
+lliurex-openmeetings (0.2) precise; urgency=high
+
+  * Fixed n4d plugin
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 29 May 2014 17:19:13 +0200
+
+lliurex-openmeetings (0.1) precise; urgency=high
+
+  * First release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 19 Nov 2013 12:11:29 +0100
+

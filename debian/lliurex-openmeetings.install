@@ -1,0 +1,7 @@
+install-files/*		/
+
+setup-gui/interface.glade	/usr/share/lliurex-openmeetings/setup-rsrc/
+service-gui/interface.glade	/usr/share/lliurex-openmeetings/service-rsrc/
+service-gui/lliurex-openmeetings-service-gui	/usr/sbin
+setup-gui/lliurex-openmeetings-setup	/usr/sbin
+
