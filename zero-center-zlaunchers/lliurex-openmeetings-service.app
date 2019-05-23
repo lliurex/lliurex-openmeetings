@@ -12,5 +12,5 @@ Icon=lliurex-lab
 Category=Services
 ScriptPath=lliurex-openmeetings-service.zmd
 Groups=sudo;admins;teachers
-Using=pe
+Using=pkexec
 Depends=lliurex-openmeetings
