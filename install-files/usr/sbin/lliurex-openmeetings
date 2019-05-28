@@ -350,7 +350,8 @@ class LliurexOpenmeetings:
 		
 		if project_dir==None:
 			project_dir=VAR_DIR
-			
+		
+		os.makedirs(project_dir+"/webapps/openmeetings/conf/")
 		dest_file=project_dir+"/webapps/openmeetings/conf/lliurex_ldap.cfg"
 		
 		template=BASE_DIR+FILES_DIR
