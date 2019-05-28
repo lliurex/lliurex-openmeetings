@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import subprocess
 import sys
@@ -40,7 +40,7 @@ def launch_service():
 		
 	else:
 		
-		print "RUNNING"
+		print ("RUNNING")
 	
 	
 def _launch_service():
@@ -49,21 +49,27 @@ def _launch_service():
 	
 	if not os.path.exists(LOG_DIR):
 		os.mkdir(LOG_DIR)
-	
-	cmd="cd %s ; RED5_HOME=%s %sred5.sh"%(LOG_DIR,RED5_HOME,RED5_HOME)
-	p=subprocess.Popen([cmd],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	#Openmeetings now is controlled by startup.sh
+#	cmd="cd %s ; RED5_HOME=%s %sred5.sh"%(LOG_DIR,RED5_HOME,RED5_HOME)
+	cmd="/var/lib/openmeetings/bin/startup.sh"
+#	p=subprocess.Popen([cmd],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	p=subprocess.run([cmd])
+	if p.returncode==0:
+		print ("RUNNING")
 
-	while True:
-		if "Openmeetings is up" in p.stdout.readline():
-			print "RUNNING"
-			break
+#	while True:
+#		if "Openmeetings is up" in p.stdout.readline():
+#			print "RUNNING"
+#			break
 			
 def stop_service():
 	
 	if check_token():
 	
-		cmd="RED5_HOME=%s %sred5-shutdown.sh 1>/dev/null 2>/dev/null"%(RED5_HOME,RED5_HOME)
-		os.system(cmd)
+#		cmd="RED5_HOME=%s %sred5-shutdown.sh 1>/dev/null 2>/dev/null"%(RED5_HOME,RED5_HOME)
+		cmd="/var/lib/openmeetings/bin/shutdown.sh"
+		p=subprocess.run([cmd])
+#		os.system(cmd)
 
 if len(sys.argv)>1:
 

@@ -108,10 +108,21 @@ class LliurexOpenmeetings:
 			file_path=VAR_DIR+"webapps/openmeetings/WEB-INF/classes/META-INF/mysql_persistence.xml"
 		
 		f=open(file_path)
-		content="".join(f.readlines())
+		orig_content=f.readlines()
+		f.close()
+		content=[]
+		#Fix jdbc chain
+		for line in orig_content:
+			if line.strip().startswith(", Url"):
+				line=line+"&amp;serverTimezone=Europe/Berlin"
+			content.append(line)
+		
+		f=open(file_path,'w')
+		f.writelines(content)
 		f.close()
 		
-		content=content.replace("Username=root","Username="+self.template["db_user"])
+		orig_content="".join(content)
+		content=orig_content.replace("Username=root","Username="+self.template["db_user"])
 		content=content.replace("Password=","Password="+self.template["db_pass"])
 		file_path=VAR_DIR+"webapps/openmeetings/WEB-INF/classes/META-INF/persistence.xml"
 		
@@ -146,7 +157,7 @@ class LliurexOpenmeetings:
 		
 		con=mdb.connect('localhost',user,password,"openmeetings")
 		cur=con.cursor()
-		query="UPDATE configuration SET conf_value='0' WHERE ID=39"
+		query="UPDATE configuration SET value='false' WHERE ID=35"
 		cur.execute(query)
 		con.commit()
 		
@@ -166,7 +177,7 @@ class LliurexOpenmeetings:
 		cmd='mysql -uroot -p$(mysql_root_passwd -g) -e "create database openmeetings DEFAULT CHARACTER SET \"utf8\""'
 		os.system(cmd)
 		
-		cmd=VAR_DIR+"admin.sh -i -v -tz Europe/Madrid -email %s -group webbase -user %s --smtp-server localhost --db-type mysql --db-name openmeetings --email-auth-user noreply@webbase-design.de --password %s --system-email-address noreply@lliurex.net --db-user %s --db-host localhost --db-pass %s 1>/dev/null 2>/dev/null"%(email,user,password,db_user,db_pass)
+		cmd=VAR_DIR+"admin.sh -i -v -tz Europe/Madrid -email %s -group webbase -user %s --smtp-server localhost --db-type mysql --db-name openmeetings --email-auth-user noreply@webbase-design.de --password %s --system-email-address noreply@lliurex.net --db-user %s --db-host localhost --db-pass %s"%(email,user,password,db_user,db_pass)
 		os.system(cmd)
 		
 		
@@ -182,11 +193,9 @@ class LliurexOpenmeetings:
 		cur=con.cursor()
 		
 		query=[]
-		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=18")
-		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=19")
-		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=20")
-		query.append("UPDATE configuration SET conf_value='/usr/bin/' WHERE ID=21")
-		query.append("UPDATE configuration SET conf_value='%s' WHERE ID=23"%JODCONVERTER_PATH)
+		query.append("UPDATE configuration SET value='/usr/bin/' WHERE ID=18")
+		query.append("UPDATE configuration SET value='/usr/bin/' WHERE ID=19")
+		query.append("UPDATE configuration SET value='/usr/bin/' WHERE ID=20")
 		
 		for q in query:
 			#print("\t"+q+ " ...")
@@ -208,7 +217,7 @@ class LliurexOpenmeetings:
 		
 		query=[]
 		
-		query.append("UPDATE configuration SET conf_value='rooms/public' WHERE ID=53")
+		query.append("UPDATE configuration SET value='rooms/public' WHERE ID=48")
 		
 		for q in query:
 			#print("\t"+q+ " ...")
@@ -230,7 +239,7 @@ class LliurexOpenmeetings:
 		
 		query=[]
 		
-		query.append("UPDATE configuration SET conf_value='1' WHERE ID=51")
+		query.append("UPDATE configuration SET value='1' WHERE ID=46")
 		
 		for q in query:
 			#print("\t"+q+ " ...")
@@ -246,6 +255,9 @@ class LliurexOpenmeetings:
 	def add_lliurex_group(self):
 		
 		print("* Adding LliureX group ...")
+		#Deprecated
+		return(0)
+
 		user=self.template["db_user"]
 		password=self.template["db_pass"]
 		
@@ -285,22 +297,23 @@ class LliurexOpenmeetings:
 		cur=con.cursor()
 		
 		
-		cur.execute("SELECT MAX(id) from organisation WHERE name='Lliurex Default Group'")
-		data=cur.fetchone()
-		organization_id=str(data[0])		
+#		cur.execute("SELECT MAX(id) from organisation WHERE name='Lliurex Default Group'")
+#		data=cur.fetchone()
+#		organization_id=str(data[0])		
 		
-		query="INSERT INTO room (allow_font_styles, allow_recording, allow_user_questions, appointment, auto_video_select, chat_moderated, chat_opened, comment_field, deleted, files_opened, hide_actions_menu, hide_activities_and_actions, hide_chat, hide_files_explorer, hide_screen_sharing, hide_top_bar, hide_whiteboard, is_audio_only, is_closed, isdemoroom, ismoderatedroom, ispublic, name, numberOfPartizipants, show_microphone_status, sip_enabled, starttime, wait_for_recording, roomtypes_id) VALUES(1,0,1,	0,0,	1,1,'',0,0,0,0,0,0,0,0,0,0,	0,0,0,1,'LliureX Room',32,0,0,NOW(),0,1)"
+#		query="INSERT INTO room (allow_font_styles, allow_recording, allow_user_questions, appointment, auto_video_select, chat_moderated, chat_opened, comment_field, deleted, files_opened, hide_actions_menu, hide_activities_and_actions, hide_chat, hide_files_explorer, hide_screen_sharing, hide_top_bar, hide_whiteboard, is_audio_only, is_closed, isdemoroom, ismoderatedroom, ispublic, name, numberOfPartizipants, show_microphone_status, sip_enabled, starttime, wait_for_recording, roomtypes_id) VALUES(1,0,1,	0,0,	1,1,'',0,0,0,0,0,0,0,0,0,0,	0,0,0,1,'LliureX Room',32,0,0,NOW(),0,1)"
+		query="INSERT INTO room (allow_recording, allow_user_questions, appointment, chat_moderated, chat_opened, comment, deleted, files_opened, is_audio_only, is_closed, demo_room, ismoderatedroom, ispublic, name, sip_enabled,wait_for_recording) VALUES(0,1,	0,	1,1,'',0,0,0,	0,0,0,1,'LliureX Room',0,0)"
 		
 		cur.execute(query)
 		con.commit()	
 		
-		cur.execute("SELECT MAX(id) from room WHERE name='LliureX Room'")
-		data=cur.fetchone()
-		room_id=str(data[0])		
+#		cur.execute("SELECT MAX(id) from room WHERE name='LliureX Room'")
+#		data=cur.fetchone()
+#		room_id=str(data[0])		
 		
-		query="INSERT INTO rooms_organisation(deleted,rooms_id,organisation_id) VALUES(0,%s,%s)"%(room_id,organization_id)
-		cur.execute(query)
-		con.commit()
+#		query="INSERT INTO rooms_organisation(deleted,rooms_id,organisation_id) VALUES(0,%s,%s)"%(room_id,organization_id)
+#		cur.execute(query)
+#		con.commit()
 		
 		
 		
@@ -372,7 +385,8 @@ class LliurexOpenmeetings:
 		
 		query=[]
 		
-		query.append("INSERT INTO `ldapconfig` VALUES (NULL,'\0',NULL,'lliurex_ldap.cfg','\0',NULL,NOW(),'','LliureX LDAP Configuration',NULL,1,NULL)")
+		query.append("INSERT INTO `ldapconfig` VALUES (NULL,'\0',NOW(),NULL,'','\0',NULL,'lliurex_ldap.cfg',NULL,'LliureX LDAP Configuration',1,NULL)")
+#		query.append("INSERT INTO `ldapconfig` VALUES (NULL,'\0',NULL,'lliurex_ldap.cfg','\0',NULL,NOW(),'','LliureX LDAP Configuration',NULL,1,NULL)")
 		for q in query:
 			#print("\t"+q+ " ...")
 			cur.execute(q)
