@@ -1,3 +1,9 @@
+lliurex-openmeetings (0.35) bionic; urgency=medium
+
+  * Installer moved to zero-lliurex-installers
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 29 May 2019 16:03:13 +0200
+
 lliurex-openmeetings (0.34) bionic; urgency=medium
 
   * Ported to bionic
