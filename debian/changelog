@@ -1,3 +1,9 @@
+lliurex-openmeetings (0.35.1) bionic; urgency=medium
+
+  * Add libgtkmm-3.0-dev depend
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 25 Jun 2019 13:49:00 +0200
+
 lliurex-openmeetings (0.35) bionic; urgency=medium
 
   * Installer moved to zero-lliurex-installers
