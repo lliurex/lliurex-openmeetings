@@ -1,6 +1,6 @@
 [
     {
-        "cmd": "/usr/sbin/lliurex-openmeetings-setup",
+        "cmd": "/usr/share/zero-center/zmds/lliurex-openmeetings.zmd",
         "prefix": "net.lliurex.openmeetings-setup",
         "nameaction": "openmeetings-setup",
         "icon": "lliurex-lab",
