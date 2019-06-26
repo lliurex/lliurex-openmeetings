@@ -8,7 +8,7 @@ Standards-Version: 3.9.3
 
 Package: lliurex-openmeetings
 Architecture: any
-Depends: lliurex-openmeetings-data, lliurex-openmeetings-remote, python, python-mysqldb, mysql-server, libav-tools, lliurex-swftools, xpdf, xvfb, imagemagick, ghostscript, sox, n4d, n4d-server-plugins (>= 0.84.2), lliurex-sgbd, default-jre, ${misc:Depends}, libgtkmm-3.0-dev
+Depends: lliurex-openmeetings-data, lliurex-openmeetings-remote, python, python-mysqldb, mysql-server, libav-tools, lliurex-swftools, xpdf, xvfb, imagemagick, ghostscript, sox, n4d, n4d-server-plugins (>= 0.84.2), lliurex-sgbd, default-jre, ${misc:Depends}, libgtkmm-3.0-dev, libgtkmm-3.0-1v5
 Conflicts: zero-lliurexlab-installer
 Description: Lliurex Openmeetings
  This package allows user to install and configure openmeetings
