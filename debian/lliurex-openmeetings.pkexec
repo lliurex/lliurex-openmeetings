@@ -1,0 +1,26 @@
+[
+    {
+        "cmd": "/usr/sbin/lliurex-openmeetings-setup",
+        "prefix": "net.lliurex.openmeetings-setup",
+        "nameaction": "openmeetings-setup",
+        "icon": "lliurex-lab",
+        "auths": [
+            {
+                "type": "group",
+                "members": [
+                    "teachers",
+                    "sudo"
+                ],
+                "any": "no",
+                "inactive": "no",
+                "active": "auth_self"
+            }
+        ],
+        "default_auth": {
+            "any": "no",
+            "inactive": "no",
+            "active": "no"
+        },
+        "requiredx": "true"
+    }
+]
