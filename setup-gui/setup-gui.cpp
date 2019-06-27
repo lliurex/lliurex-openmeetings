@@ -170,12 +170,38 @@ class Application
 			if(data["db_user"]=="root")throw string(T("root is not a valid database user"));
 			if(data["db_user"].length()<4)throw string(T("Database user should have at least, four characters"));
 			
-			if(data["db_pass"].length()<4)throw string(T("Database password should have at least, four characters"));
+			if(data["db_pass"].length()<8)throw string(T("Database password should have at least, eight characters"));
 			if(data["db_pass"]!=txtDBPass2->get_text())throw string(T("Database passwords do not match"));
+			bool sw_up=false;
+			bool sw_down=false;
+			bool sw_digit=false;
+			bool sw_special=false;
+			for (int i=0; i<data["db_pass"].length(); i++)
+			{
+				if(!(isalnum(data["db_pass"][i])))
+				{
+					sw_special=true;
+					break;
+				}
+			}
+			if (sw_special)throw string(T("Special characters are not allowed in database password"));
 			
 			if(data["admin"].length()<4)throw string(T("Admin user should have at least, four characters"));
 			
-			if(data["password"].length()<4)throw string(T("Admin password should have at least, four characters"));
+			if(data["password"].length()<8)throw string(T("Admin password should have at least, eight characters"));
+			sw_up=false;
+			sw_down=false;
+			sw_digit=false;
+			sw_special=false;
+			for (int i=0; i<data["password"].length(); i++)
+			{
+				if(isupper(data["password"][i])) sw_up=true;
+				if(islower(data["password"][i])) sw_down=true;
+				if(isdigit(data["password"][i])) sw_digit=true;
+				if(!(isalnum(data["password"][i]))) sw_special=true;
+			}
+			if (!(sw_up) || !(sw_down) || !(sw_digit) || !(sw_special))throw string(T("Database password too weak"));
+
 			if(data["password"]!=txtAdminPass2->get_text())throw string(T("Admin passwords do not match"));
 			
 			/* I had a problem, I used regex. Now I have two problems 
