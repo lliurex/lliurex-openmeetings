@@ -1,3 +1,9 @@
+lliurex-openmeetings (0.36.1) bionic; urgency=medium
+
+  * Improved password checks
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 27 Jun 2019 13:33:19 +0200
+
 lliurex-openmeetings (0.36) bionic; urgency=medium
 
   * Fixed password for user openmeetings
