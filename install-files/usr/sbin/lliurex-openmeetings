@@ -179,11 +179,6 @@ class LliurexOpenmeetings:
 		
 		cmd=VAR_DIR+"admin.sh -i -v -tz Europe/Madrid -email %s -group webbase -user %s --smtp-server localhost --db-type mysql --db-name openmeetings --email-auth-user noreply@webbase-design.de --password %s --system-email-address noreply@lliurex.net --db-user %s --db-host localhost --db-pass %s"%(email,user,password,db_user,db_pass)
 		os.system(cmd)
-		print("Setting passwords...")	
-		cmd="mysql -uroot -p$(mysql_root_passwd -g) -e 'use mysql;update user set authentication_string=password(\"%s\")"%(db_pass)
-		cmd +=" where host=\"localhost\" and user=\"%s\";flush privileges;'"%(db_user)
-		print(cmd)
-		os.system(cmd)
 		
 	#def init_db
 	
