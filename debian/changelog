@@ -1,3 +1,9 @@
+lliurex-openmeetings (0.36.2) bionic; urgency=medium
+
+  * Remove old python2 code
+
+ -- Juanma1980 <juanma1980@gmail.com>  Thu, 06 Feb 2020 14:01:46 +0100
+
 lliurex-openmeetings (0.36.1) bionic; urgency=medium
 
   * Improved password checks
