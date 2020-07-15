@@ -1,3 +1,9 @@
+lliurex-openmeetings (0.37) bionic; urgency=medium
+
+  * Update to 5.0.0-M4
+
+ -- Juanma1980 <juanma1980@gmail.com>  Wed, 15 Jul 2020 13:58:08 +0200
+
 lliurex-openmeetings (0.36.2) bionic; urgency=medium
 
   * Remove old python2 code
