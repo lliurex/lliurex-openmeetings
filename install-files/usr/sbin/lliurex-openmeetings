@@ -15,7 +15,7 @@ import xmlrpclib
 VAR_DIR="/var/lib/openmeetings/"
 BASE_DIR="/usr/share/lliurex-openmeetings/"
 FILES_DIR="lliurex-files/"
-TAR_FILE=BASE_DIR+"apache-openmeetings-5.0.0-M1.tar.gz"
+TAR_FILE=BASE_DIR+"apache-openmeetings-5.0.0-M4.tar.gz"
 MYSQL_CONNECTOR=BASE_DIR+FILES_DIR+"mysql-connector-java-8.0.16.jar"
 MENUBAR_JS=BASE_DIR+FILES_DIR+"jquery.ui.menubar.js"
 N4D_HOOK=BASE_DIR+"n4d-hooks/openmeetings.py"
