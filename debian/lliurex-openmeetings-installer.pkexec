@@ -1,0 +1,26 @@
+[
+    {
+        "prefix": "net.lliurex.zero-center.lliurex-openmeetings-service",
+        "cmd": "/usr/share/zero-center/zmds/lliurex-openmeetings-service.zmd",
+        "nameaction": "launcher",
+        "icon": "lliurex-lab",
+        "default_auth": {
+            "any": "no",
+            "inactive": "no",
+            "active": "no"
+        },
+        "auths": [
+            {
+                "type": "group",
+                "members": [
+                    "sudo",
+                    "admins",
+                    "teachers"
+                ],
+                "any": "yes",
+                "inactive": "yes",
+                "active": "yes"
+            }
+        ]
+    }
+]
