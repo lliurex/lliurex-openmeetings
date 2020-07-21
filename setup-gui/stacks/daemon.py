@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QApplication, QSlider, QLabel, QWidget, QPushButton,
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt,QSize
 from appconfig.appConfigStack import appConfigStack as confStack
+from appconfig.appConfigN4d import appConfigN4d as n4d
 import tempfile
 
 import gettext
@@ -23,6 +24,7 @@ class daemon(confStack):
 		self.index=2
 		self.enabled=True
 		self.level='system'
+		self.n4d=n4d()
 #		self.hideControlButtons()
 		self.setStyleSheet(self._setCss())
 	#def __init__
@@ -54,10 +56,9 @@ class daemon(confStack):
 
 	def _ctrlRun(self,*args):
 		if self._check_isRunning():
-			cmd=["pkexec","/usr/sbin/lliurex-openmeetings-service","stop"]
+			self.n4d.n4dQuery("LliurexOpenmeetings","remote_service_stop")
 		else:
-			cmd=["pkexec","/usr/sbin/lliurex-openmeetings-service","start"]
-		subprocess.run(cmd)
+			self.n4d.n4dQuery("LliurexOpenmeetings","remote_service_start")
 		self.updateScreen()
 	#def _ctrlRun
 

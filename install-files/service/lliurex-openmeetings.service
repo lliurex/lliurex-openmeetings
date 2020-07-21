@@ -6,7 +6,7 @@ Wants=kurento-media-server
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/lliurex-openmeetings-service start
+ExecStart=n4d-client -r -c LliurexOpenmeetings -m remote_service_start
 Restart=always
 RestartSec=2
 RestartPreventExitStatus=0
