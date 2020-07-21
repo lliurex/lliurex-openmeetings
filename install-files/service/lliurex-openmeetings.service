@@ -2,11 +2,11 @@
 Description=Starts openmeetings server
 After=apache2.service
 Requires=apache2.service
-Wants=kurento-media-server
+Wants=kurento-media-server.service
 
 [Service]
 Type=simple
-ExecStart=n4d-client -r -c LliurexOpenmeetings -m remote_service_start
+ExecStart=/usr/bin/n4d-client -r -c LliurexOpenmeetings -m remote_service_start
 Restart=always
 RestartSec=2
 RestartPreventExitStatus=0
