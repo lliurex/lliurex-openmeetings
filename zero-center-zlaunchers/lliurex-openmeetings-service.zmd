@@ -3,7 +3,7 @@
 zero-center add-pulsating-color lliurex-openmeetings-service
 
 
-lliurex-openmeetings-service-gui
+lliurex-openmeetings-setup-qt
 
 
 zero-center remove-pulsating-color lliurex-openmeetings-service

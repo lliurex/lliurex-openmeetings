@@ -3,12 +3,10 @@
 	
 all:
 	make -C setup-gui/ $@
-	make -C service-gui/ $@
 	make -C svg/ $@
 	
 clean:
 	make -C setup-gui/ $@
-	make -C service-gui/ $@
 	make -C svg/ $@
 
 pot:

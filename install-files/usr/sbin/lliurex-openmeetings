@@ -22,10 +22,10 @@ N4D_HOOK=BASE_DIR+"n4d-hooks/openmeetings.py"
 SERVICE_LAUNCHER=BASE_DIR+FILES_DIR+"lliurex-openmeetings-service"
 JODCONVERTER_PATH=BASE_DIR+"jodconverter/"
 
-INDEX_FILE=BASE_DIR+FILES_DIR+"lliurexlab.conf"
+INDEX_FILE=BASE_DIR+FILES_DIR+"lliurexmeet.conf"
 
-ORIGINAL_WWW_FILE="/etc/apache2/sites-available/lliurexlab.conf"
-DIVERTED_WWW_FILE="/etc/apache2/sites-available/lliurexlab.diverted"
+ORIGINAL_WWW_FILE="/etc/apache2/sites-available/lliurexmeet.conf"
+DIVERTED_WWW_FILE="/etc/apache2/sites-available/lliurexmeet.diverted"
 
 class LliurexOpenmeetings:
 	
