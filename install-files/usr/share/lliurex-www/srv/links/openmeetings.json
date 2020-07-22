@@ -1,7 +1,7 @@
 {
     "linkid":"lliurexmeet",
     "link":"http://lliurexmeet",
-    "icon":"lliurexlab.png",
+    "icon":"lliurexmeet.svg",
     "fonticon":"icon-headphones",
     "name": {
         "default":"LliurexMeet: Openmeetings e-learning and Videoconference Tool",
