@@ -1,0 +1,16 @@
+Name=LliurexMeet setup
+Name[en]=LliurexMeet setup
+Name[es]=Instalador de LliurexMeet
+Name[qcv]=Instal·lador del LliurexMeet
+Name[ca_ES]=Instal·lador del LliurexMeet
+Comment=Installs and costomizes Apache OpenMeetings for LliureX 
+Comment[en]=Installs and customizes Apache OpenMeetings for LliureX 
+Comment[es]=Instala Apache Openmeetings adaptándolo a LliureX 
+Comment[qcv]=Instal·la Apache OpenMeetings i el configura per a LliureX
+Comment[ca_ES]=Instal·la Apache OpenMeetings i el configura per a LliureX
+Icon=lliurexmeet
+Category=Services
+ScriptPath=lliurex-openmeetings-service.zmd
+Groups=sudo;admins;teachers
+Using=pkexec
+Depends=lliurex-openmeetings

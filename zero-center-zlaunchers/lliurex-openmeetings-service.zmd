@@ -1,0 +1,12 @@
+#!/bin/bash
+
+zero-center add-pulsating-color lliurex-openmeetings-service
+
+
+lliurex-openmeetings-setup-qt
+
+
+zero-center remove-pulsating-color lliurex-openmeetings-service
+
+exit 0
+

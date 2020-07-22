@@ -1,16 +1,16 @@
 {
-    "linkid":"lliurexlab",
-    "link":"http://lliurexlab",
+    "linkid":"lliurexmeet",
+    "link":"http://lliurexmeet",
     "icon":"lliurexlab.png",
     "fonticon":"icon-headphones",
     "name": {
-        "default":"LliurexLab: Language lab",
-        "valencia":"LliurexLab: Laboratori d'idiomes",
-        "es":"LliurexLab: Laboratorio de idiomas"
+        "default":"LliurexMeet: Openmeetings e-learning and Videoconference Tool",
+        "valencia":"LliurexMeet: E-learning i videoconferencia amb OpenMeetings",
+        "es":"LliurexMeet: E-learning y videoconferencia con OpenMeetings"
     },
     "description": {
-        "default":"Language lab based on openmeetings",
-        "valencia":"Laboratori d'idiomes basat en openmeetings",
-        "es":"Laboratorio de idiomas basado en openmeetings"
+        "default":"Openmeetings provides video conferencing, instant messaging, white board, collaborative document editing and other groupware tools",
+        "valencia":"Openmeetings ofereix videooconferencia, missatgeria instantanea, pissara, edició col·laborativa de documents i altres ferramentes per a treball en equip",
+        "es":"Openmeetings ofrece videoconferencia, mensajería instantánea, pizarra, edición colaborativa de documentos y otras herramientas para trabajo en equipo"
     }
 }
