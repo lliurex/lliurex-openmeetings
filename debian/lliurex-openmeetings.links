@@ -1,1 +1,2 @@
 /usr/share/lliurex-openmeetings/lliurex-openmeetings-setup-qt.py /usr/sbin/lliurex-openmeetings-setup-qt
+/etc/apache2/sites-available/lliurexmeet.conf /etc/apache2/sites-enabled/lliurexmeet.conf
