@@ -30,7 +30,7 @@ case "$1" in
 			ln -s /usr/share/lliurex-www/srv /var/www/srv || true
 		fi
 	fi
-	
+	service apache2 restart	
 	;;
 
 
