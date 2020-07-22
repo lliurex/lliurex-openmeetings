@@ -66,7 +66,7 @@ class LliurexOpenmeetings:
 	
 	def extract_tar(self,tar_file=None,dest_dir=None):
 		
-		print("* Extracting openmeetings tar ...")
+		print("* Extracting openmeetings tar...")
 		
 		if tar_file==None:
 			tar_file=TAR_FILE
@@ -76,6 +76,11 @@ class LliurexOpenmeetings:
 		
 		cmd="tar -xvzf %s -C %s 1>/dev/null"%(tar_file,dest_dir)
 		os.system(cmd)
+		chk_dir=os.path.join(dest_dir,".".join(os.path.basename(tar_file).split(".")[0:-2]))
+		print("* Fixing path %s"%chk_dir)
+		if os.path.isdir(chk_dir):
+			cmd="mv %s/* %s"%(chk_dir,dest_dir)
+			os.system(cmd)
 		
 	#def extract_tar
 	
@@ -301,7 +306,7 @@ class LliurexOpenmeetings:
 #		organization_id=str(data[0])		
 		
 #		query="INSERT INTO room (allow_font_styles, allow_recording, allow_user_questions, appointment, auto_video_select, chat_moderated, chat_opened, comment_field, deleted, files_opened, hide_actions_menu, hide_activities_and_actions, hide_chat, hide_files_explorer, hide_screen_sharing, hide_top_bar, hide_whiteboard, is_audio_only, is_closed, isdemoroom, ismoderatedroom, ispublic, name, numberOfPartizipants, show_microphone_status, sip_enabled, starttime, wait_for_recording, roomtypes_id) VALUES(1,0,1,	0,0,	1,1,'',0,0,0,0,0,0,0,0,0,0,	0,0,0,1,'LliureX Room',32,0,0,NOW(),0,1)"
-		query="INSERT INTO room (allow_recording, allow_user_questions, appointment, chat_moderated, chat_opened, comment, deleted, files_opened, is_audio_only, is_closed, demo_room, ismoderatedroom, ispublic, name, sip_enabled,wait_for_recording,capacity,type,inserted) VALUES(0,1,0,1,1,'',0,0,0,0,0,0,1,'LliureX Room',0,0,32,'CONFERENCE',NOW())"
+		query="INSERT INTO room (allow_recording, allow_user_questions, appointment, chat_moderated, chat_opened, comment, deleted, files_opened, audio_only, closed, demo_room, moderated, ispublic, name, sip_enabled,wait_for_recording,capacity,type,inserted) VALUES(0,1,0,1,1,'',0,0,0,0,0,0,1,'LliureX Room',0,0,32,'CONFERENCE',NOW())"
 		
 		cur.execute(query)
 		con.commit()	
