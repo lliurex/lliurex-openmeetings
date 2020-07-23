@@ -15,7 +15,7 @@ class validate():
 	def __init__(self):
 		self.err=0
 		self.errMsg=""
-		self.errCode={"10":_("Invalid username"),"20":_("Special characters not allowed"),"30":_("Invalid password lenght"),"40":_("No special characters detected")}
+		self.errCode={10:_("Invalid username"),20:_("Special characters not allowed"),30:_("Invalid password lenght"),40:_("No special characters detected"),50:_("Passwords don't match"),55:_("Password must contain upper and lowercase letters"),57:_("Currency symbols not allowed"),60:_("Invalid mail")}
 	#def __init__
 	
 	def chkTxt(self,txt,alphaStrict=False):
@@ -28,7 +28,7 @@ class validate():
 			elif txt.strip()=="root":
 				self.err=10
 				
-		self.errMsg=self.errCode.get(str(self.err),"")
+		self.errMsg=self.errCode.get(self.err,"")
 	#def chkTxt
 	
 	def chkPwd(self,pwd,alphaStrict=False):
@@ -40,19 +40,34 @@ class validate():
 				self.err=20
 			elif (alphaStrict==False and pwd.isalnum()==True):
 				self.err=40
-		self.errMsg=self.errCode.get(str(self.err),"")
+		if (pwd.lower()==pwd) or (pwd.upper()==pwd):
+			self.err=55
+		if "$" in pwd:
+			self.err=57
+		self.errMsg=self.errCode.get(self.err,"")
 	#def chkPwd
+
+	def compPwds(self,pwd,pwd2):
+		if pwd!=pwd2:
+			self.err=50
+		self.errMsg=self.errCode.get(self.err,"")
 	
 	def chkMail(self,mail):
 		mailstring=str(mail)
 		retval=False
+		self.err=60
 		if "@" in mailstring and len(mailstring)<75:
 			mailparts=mailstring.split("@")
 			if ("." in mailparts[1]):
 				domain=mailparts[1].split(".")
 				if (len(domain[1])>=2 and domain[1].isalnum() and len(domain[0])>=2 and domain[0].isalnum() and len(mailparts[0])>=2 and mailparts[0].isalnum()):
 					retval=True
+					self.err=0
 		return retval
+	
+	def getErr(self,errCode):
+		return(self.errCode.get(errCode,''))
+	#def chkPwd
 
 class config(confStack):
 	def __init_stack__(self):
@@ -118,48 +133,53 @@ class config(confStack):
 
 	def _validate(self):
 		val=validate()
-		retval=True
+		retval=0
+		self.inp_user.setStyleSheet("")
+		self.inp_pwd.setStyleSheet("")
+		self.inp_admin.setStyleSheet("")
+		self.inp_apwd.setStyleSheet("")
+		self.inp_mail.setStyleSheet("")
 		#Check a valid username is given
 		val.chkTxt(self.inp_user.text(),True)
 		if val.errMsg:
-			retval=False
-			self.inp_user.setObjectName("error")
+			retval=val.err
+			self.inp_user.setStyleSheet("background:red;")
 			self._debug(val.errMsg)
 		else:
-			if self.inp_pwd.text()!=self.inp_pwd2.text():
-				retval=False
-				self.inp_pwd.setObjectName("error")
-				err=_("Passwords don't match")
-				self._debug(err)
+			val.compPwds(self.inp_pwd.text(),self.inp_pwd2.text())
+			if val.errMsg:
+				retval=val.err
+				self.inp_pwd.setStyleSheet("background:red;")
+				self._debug(val.errMsg)
 			else:
 				val.chkPwd(self.inp_pwd.text(),True)
 				if val.errMsg:
-					retval=False
-					self.inp_pwd.setObjectName("error")
+					retval=val.err
+					self.inp_pwd.setStyleSheet("background:red;")
 					self._debug(val.errMsg)
 		if val.errMsg=="":
 			val.chkTxt(self.inp_admin.text(),True)
 			if val.errMsg:
-				retval=False
-				self.inp_admin.setObjectName("error")
+				retval=val.err
+				self.inp_admin.setStyleSheet("background:red;")
 				self._debug(val.errMsg)
 			else:
-				if self.inp_apwd.text()!=self.inp_apwd2.text():
-					retval=False
-					self.inp_apwd.setObjectName("error")
-					err=_("Passwords don't match")
-					self._debug(err)
+				val.compPwds(self.inp_apwd.text(),self.inp_apwd2.text())
+				if val.errMsg:
+					retval=val.err
+					self.inp_apwd.setStyleSheet("background:red;")
+					self._debug(val.errMsg)
 				else:
 					val.chkPwd(self.inp_apwd.text(),False)
 					if val.errMsg:
-						retval=False
-						self.inp_apwd.setObjectName("error")
+						retval=val.err
+						self.inp_apwd.setStyleSheet("background:red;")
 						self._debug(val.errMsg)
 		if val.errMsg=="":
 			if (val.chkMail(self.inp_mail.text()))==False:
-				retval=False
-				self.inp_mail.setObjectName("error")
-				self._debug(_("Invalid mail"))
+				retval=val.err
+				self.inp_mail.setStyleSheet("background:red;")
+				self._debug(val.errMsg)
 	
 		return(retval)
 
@@ -168,8 +188,8 @@ class config(confStack):
 	#def _udpate_screen
 	
 	def writeConfig(self):
-		val=self._validate()
-		if val:
+		err=self._validate()
+		if err==0:
 			tmpf="/tmp/lliurex-openmeetings.conf"
 			try:
 				with open(tmpf,"w") as f:
@@ -180,22 +200,22 @@ class config(confStack):
 					f.write("db_pass=%s\n"%self.inp_pwd.text())
 					f.write("email=%s\n"%self.inp_mail.text())
 			except Exception as e:
-				print("Failed when writing conffig: %s"%e)
-				val=False
-			if val:
+				err=_("Failed when writing conffig: %s")%e
+			if err==0:
+				self.showMsg(_("Working... it could take some minutes. Please don't close this window"),'error')
 				cmd=["/usr/sbin/lliurex-openmeetings","-t","/tmp/lliurex-openmeetings.conf"]
 				try:
 					a=subprocess.run(cmd)
 				except Exception as e:
-					print("Failed when updating config: %s"%e)
-					val=False
+					err=_("Failed when updating config: %s")%e
 				if a.returncode:
-					print("Failed when running lliurex-openmeetings")
-					val=False
-		if val:
+					err=_("Error %s when running lliurex-openmeetings"%a.returncode)
+		if err==0:
 			self.showMsg(_("Openmeetings configuration updated"))
 		else:
-			self.showMsg(_("An error ocurred. Check permissions"))
+			if str(err).isdigit():
+				err=validate().getErr(err)
+			self.showMsg("%s"%err)
 	#def writeConfig
 
 	def _setCss(self):
