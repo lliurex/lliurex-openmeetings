@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-24 10:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../setup-gui/stacks/config.py:25
+#, python-format
+msgid "Failed when updating config: %s"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:28
+#, python-format
+msgid "Error %s when running lliurex-openmeetings"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Invalid username"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Special characters not allowed"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Invalid password lenght"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "No special characters detected"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Passwords don't match"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Password must contain upper and lowercase letters"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Currency symbols not allowed"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:35
+msgid "Invalid mail"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:93
+msgid "Openmeetings setup"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:94
+msgid "Main configure for openmeetings"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:95
+msgid "Configure database access and users"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:97
+msgid "Configure database access and users for openmeetings"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:109
+msgid "Database user"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:111
+msgid "openmeetingsuser"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:113
+msgid "User password"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:114 ../setup-gui/stacks/config.py:129
+msgid "* At least 8 character"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:115
+msgid "SPECIAL CHARACTERS NOT ALLOWED"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:118 ../setup-gui/stacks/config.py:122
+msgid "p4ssw0rd"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:124
+msgid "Admin user"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:126
+msgid "admin"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:128
+msgid "Admin password"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:130
+msgid ""
+"* Uppercase and lowercase\n"
+"* Alphanumeric\n"
+"* With special characters (!, #, &...) "
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:133 ../setup-gui/stacks/config.py:137
+msgid "P4ssw0rd!"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:139
+msgid "Admin email"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:141
+msgid "lluna@lliurex.net"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:221
+#, python-format
+msgid "Failed when writing conffig: %s"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:223
+msgid "Working... it could take some minutes. Please don't close this window"
+msgstr ""
+
+#: ../setup-gui/stacks/config.py:234
+msgid "Openmeetings configuration updated"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:20
+msgid "Openmeetings daemon setup"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:21
+msgid "Conifgure openmeetings service setup"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:23
+msgid "Start/stop the service or launch at boot"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:39
+msgid "Launch at startup"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:42
+msgid "Disable videconference (remove webcam and microphone support)"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:80
+msgid "Stop service"
+msgstr ""
+
+#: ../setup-gui/stacks/daemon.py:83
+msgid "Start service"
+msgstr ""
