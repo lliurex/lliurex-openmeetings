@@ -149,7 +149,7 @@ msgstr "Configuració actualitzada"
 
 #: ../setup-gui/stacks/daemon.py:20
 msgid "Openmeetings daemon setup"
-msgstr "Configuració del servei"
+msgstr "Configuració del dimoni"
 
 #: ../setup-gui/stacks/daemon.py:21
 msgid "Conifgure openmeetings service setup"
