@@ -7,6 +7,7 @@ PROJECT="OpenMeetings"
 
 app=QApplication(["%s Setup"%PROJECT])
 config=appConfig("%s"%PROJECT,{'app':app})
+config.setTextDomain('lliurex-openmeeting-setup')
 config.setRsrcPath("/usr/share/lliurex-openmeetings/rsrc")
 config.setIcon('%s'%PROJECT.lower())
 config.setBanner('%s_banner.png'%PROJECT.lower())
