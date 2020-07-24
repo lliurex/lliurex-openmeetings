@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 10:15+0200\n"
-"PO-Revision-Date: 2020-07-24 10:37+0200\n"
+"PO-Revision-Date: 2020-07-24 10:47+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,89 +16,89 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es_ES\n"
+"Language: ca_ES\n"
 
 #: ../setup-gui/stacks/config.py:25
 #, python-format
 msgid "Failed when updating config: %s"
-msgstr "Error configurando: %s"
+msgstr "Error actualitzant: %s"
 
 #: ../setup-gui/stacks/config.py:28
 #, python-format
 msgid "Error %s when running lliurex-openmeetings"
-msgstr "Error de ejecucion %s "
+msgstr "Error d'execució: %s "
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Invalid username"
-msgstr "Usuario no válido"
+msgstr "Usuari no vàlid"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Special characters not allowed"
-msgstr "No se permiten carácteres especiales"
+msgstr "No es permetren caràcters especials"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Invalid password lenght"
-msgstr "Tamaño de la contraseña incorrecto"
+msgstr "Mida de contrasenya invàlida"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "No special characters detected"
-msgstr "Debe haber al menos un carácter especial"
+msgstr "Cal afegir com a mínim un caràcter especial"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Passwords don't match"
-msgstr "Las contraseñas no coinciden"
+msgstr "Les contrasenyes son diferents"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Password must contain upper and lowercase letters"
-msgstr "La contraseña debe tener mayúsculas y minúsculas"
+msgstr "Cal incloure majúscules i minúscules a la contrasenya"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Currency symbols not allowed"
-msgstr "Los símbolos monterarios no están permitidos"
+msgstr "Símbols monetaris no son permessos"
 
 #: ../setup-gui/stacks/config.py:35
 msgid "Invalid mail"
-msgstr "Dirección incorrecta"
+msgstr "Direcció errònea"
 
 #: ../setup-gui/stacks/config.py:93
 msgid "Openmeetings setup"
-msgstr "Configuración de OpenMeetings"
+msgstr "Configuració de l'Openmeetings"
 
 #: ../setup-gui/stacks/config.py:94
 msgid "Main configure for openmeetings"
-msgstr "Configuración principal de openmeetings"
+msgstr "Configuració principal"
 
 #: ../setup-gui/stacks/config.py:95
 msgid "Configure database access and users"
-msgstr "Configura la base de datos y los usuarios"
+msgstr "Configura base de dades i usuaris"
 
 #: ../setup-gui/stacks/config.py:97
 msgid "Configure database access and users for openmeetings"
-msgstr "Configura la base de datos y los usuarios de openmeetings"
+msgstr "Configura l'accés a la base de dades i els usuaris de l'openmeetings"
 
 #: ../setup-gui/stacks/config.py:109
 msgid "Database user"
-msgstr "Usuario de la base de datos"
+msgstr "Usuari de la base de dades"
 
 #: ../setup-gui/stacks/config.py:111
 msgid "openmeetingsuser"
-msgstr "usuarioMeetings"
+msgstr "usuariMeetings"
 
 #: ../setup-gui/stacks/config.py:113
 msgid "User password"
-msgstr "Contraseña"
+msgstr "Contrasenya"
 
 #: ../setup-gui/stacks/config.py:114 ../setup-gui/stacks/config.py:129
 msgid "* At least 8 character"
-msgstr "* Al menos 8 carácteres"
+msgstr "* Mínim 8 caràcters"
 
 #: ../setup-gui/stacks/config.py:115
 msgid "SPECIAL CHARACTERS NOT ALLOWED"
-msgstr "NO SE PERMITEN CARÁCTERES ESPECIALES"
+msgstr "ELS CARACTERS ESPECIALS NO SON PERMESSOS"
 
 #: ../setup-gui/stacks/config.py:118 ../setup-gui/stacks/config.py:122
 msgid "p4ssw0rd"
-msgstr "Cl4veSecreta"
+msgstr "C0ntrasenya"
 
 #: ../setup-gui/stacks/config.py:124
 msgid "Admin user"
@@ -106,11 +106,11 @@ msgstr "Administrador"
 
 #: ../setup-gui/stacks/config.py:126
 msgid "admin"
-msgstr "administrador"
+msgstr "admin"
 
 #: ../setup-gui/stacks/config.py:128
 msgid "Admin password"
-msgstr "Contraseña"
+msgstr "Contrasenya"
 
 #: ../setup-gui/stacks/config.py:130
 msgid ""
@@ -118,17 +118,17 @@ msgid ""
 "* Alphanumeric\n"
 "* With special characters (!, #, &...) "
 msgstr ""
-"* Mayúsculas y minúsculas\n"
-"* Alfanumérica\n"
-"* Con carácteres especiales  (!, #, &...) "
+"* Majñuscules i minúscules\n"
+"* Alfanumérica \n"
+"* Amb caràcters especials (!, #, &...) "
 
 #: ../setup-gui/stacks/config.py:133 ../setup-gui/stacks/config.py:137
 msgid "P4ssw0rd!"
-msgstr "Cl4veSecreta!"
+msgstr "C0ntrasenya!"
 
 #: ../setup-gui/stacks/config.py:139
 msgid "Admin email"
-msgstr "Correo de Administración"
+msgstr "Mail d'administració"
 
 #: ../setup-gui/stacks/config.py:141
 msgid "lluna@lliurex.net"
@@ -137,35 +137,35 @@ msgstr "lluna@lliurex.net"
 #: ../setup-gui/stacks/config.py:221
 #, python-format
 msgid "Failed when writing conffig: %s"
-msgstr "Error al gurardar: %s"
+msgstr "Error al desar la configuració: %s"
 
 #: ../setup-gui/stacks/config.py:223
 msgid "Working... it could take some minutes. Please don't close this window"
-msgstr "Trabajando... puede llevar algo de tiempo. Por favor no cierres la ventana"
+msgstr "Treballant... Per favor no tanque la finestra"
 
 #: ../setup-gui/stacks/config.py:234
 msgid "Openmeetings configuration updated"
-msgstr "Configuración actualizada"
+msgstr "Configuració actualitzada"
 
 #: ../setup-gui/stacks/daemon.py:20
 msgid "Openmeetings daemon setup"
-msgstr "Configuración del servicio OpenMeetings"
+msgstr "Configuració del servei"
 
 #: ../setup-gui/stacks/daemon.py:21
 msgid "Conifgure openmeetings service setup"
-msgstr "Configura el servicio de openmeetings"
+msgstr "Configura el dimoni d'OpenMeetings"
 
 #: ../setup-gui/stacks/daemon.py:23
 msgid "Start/stop the service or launch at boot"
-msgstr "Arranca/detiene el servicio o lo lanza al arranque"
+msgstr "Activa/desactiva el dimoni o l'executa al iniciar"
 
 #: ../setup-gui/stacks/daemon.py:39
 msgid "Launch at startup"
-msgstr "Ejecutar al inicio"
+msgstr "Activar al inici"
 
 #: ../setup-gui/stacks/daemon.py:42
 msgid "Disable videconference (remove webcam and microphone support)"
-msgstr "Desactivar videoconferencia (sin soporte para webcam y micrófono)"
+msgstr "Desactiva la videoconferencia (impideix l'ús de la webcam)"
 
 #: ../setup-gui/stacks/daemon.py:80
 msgid "Stop service"
