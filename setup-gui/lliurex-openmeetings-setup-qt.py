@@ -8,6 +8,7 @@ PROJECT="OpenMeetings"
 app=QApplication(["%s Setup"%PROJECT])
 config=appConfig("%s"%PROJECT,{'app':app})
 config.setTextDomain('lliurex-openmeetings-setup')
+config.setWiki('https://wiki.edu.gva.es/lliurex/tiki-index.php?page=Lliurex+Lab+%28bionic%29')
 config.setRsrcPath("/usr/share/lliurex-openmeetings/rsrc")
 config.setIcon('%s'%PROJECT.lower())
 config.setBanner('%s_banner.png'%PROJECT.lower())
