@@ -4,12 +4,29 @@ import os
 import subprocess
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QPushButton,QVBoxLayout,QLineEdit,QGridLayout,QHBoxLayout,QComboBox,QCheckBox, QListWidget,QFileDialog,QFrame
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt,QSize
+from PyQt5.QtCore import Qt,QSize,QThread,pyqtSignal
 from appconfig.appConfigStack import appConfigStack as confStack
 import tempfile
 
 import gettext
 _ = gettext.gettext
+
+class launcher(QThread):
+	def __init__(self,*args):
+		QThread.__init__(self)
+		self.errMsg=""
+		self.err=0
+
+	def run(self,*args):
+		cmd=["/usr/sbin/lliurex-openmeetings","-t","/tmp/lliurex-openmeetings.conf"]
+		try:
+			a=subprocess.run(cmd)
+		except Exception as e:
+			self.errMsg=_("Failed when updating config: %s")%e
+			self.err=1
+		if a.returncode:
+			self.errMsg=_("Error %s when running lliurex-openmeetings"%a.returncode)
+			self.err=2
 
 class validate():
 	def __init__(self):
@@ -83,6 +100,7 @@ class config(confStack):
 		self.level='system'
 #		self.hideControlButtons()
 		self.setStyleSheet(self._setCss())
+		self.installer=launcher()
 	#def __init__
 	
 	def _load_screen(self):
@@ -203,20 +221,19 @@ class config(confStack):
 				err=_("Failed when writing conffig: %s")%e
 			if err==0:
 				self.showMsg(_("Working... it could take some minutes. Please don't close this window"),'error')
-				cmd=["/usr/sbin/lliurex-openmeetings","-t","/tmp/lliurex-openmeetings.conf"]
-				try:
-					a=subprocess.run(cmd)
-				except Exception as e:
-					err=_("Failed when updating config: %s")%e
-				if a.returncode:
-					err=_("Error %s when running lliurex-openmeetings"%a.returncode)
-		if err==0:
+				self.setDisabled(True)
+				self.installer.start()
+				self.installer.finished.connect(self._finishProcess)
+	#def writeConfig
+
+	def _finishProcess(self):
+		self.showMsg("")
+		self.setEnabled(True)
+		time.sleep(1)
+		if self.installer.err==False:
 			self.showMsg(_("Openmeetings configuration updated"))
 		else:
-			if str(err).isdigit():
-				err=validate().getErr(err)
-			self.showMsg("%s"%err)
-	#def writeConfig
+			self.showMsg("%s"%self.installer.errMsg)
 
 	def _setCss(self):
 		css="""
