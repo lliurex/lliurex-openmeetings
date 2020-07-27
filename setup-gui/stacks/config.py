@@ -7,6 +7,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt,QSize,QThread,pyqtSignal
 from appconfig.appConfigStack import appConfigStack as confStack
 import tempfile
+import time
 
 import gettext
 _ = gettext.gettext
