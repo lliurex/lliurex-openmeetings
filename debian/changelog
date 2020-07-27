@@ -1,6 +1,7 @@
-lliurex-openmeetings (0.37.9.2) bionic; urgency=medium
+lliurex-openmeetings (0.37.9.3) bionic; urgency=medium
 
   * Fixed time import at config section of gui
+  * Fixed null value for wait_moderator
 
  -- Juanma1980 <juanma1980@gmail.com>  Mon, 27 Jul 2020 13:20:15 +0200
 
