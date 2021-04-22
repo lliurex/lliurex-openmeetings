@@ -1,3 +1,9 @@
+lliurex-openmeetings (0.37.9.4) focal; urgency=medium
+
+  * First focal release
+
+ -- Juanma1980 <juanma1980@gmail.com>  Thu, 22 Apr 2021 17:54:45 +0200
+
 lliurex-openmeetings (0.37.9.3) bionic; urgency=medium
 
   * Fixed time import at config section of gui
