@@ -2,9 +2,9 @@
 import sys
 import os
 import subprocess
-from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QPushButton,QVBoxLayout,QLineEdit,QGridLayout,QHBoxLayout,QComboBox,QCheckBox, QListWidget,QFileDialog,QFrame
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt,QSize,QThread,pyqtSignal
+from PySide2.QtWidgets import QApplication, QLabel, QWidget, QPushButton,QVBoxLayout,QLineEdit,QGridLayout,QHBoxLayout,QComboBox,QCheckBox, QListWidget,QFileDialog,QFrame
+from PySide2 import QtGui
+from PySide2.QtCore import Qt,QSize,QThread
 from appconfig.appConfigStack import appConfigStack as confStack
 import tempfile
 import time
@@ -221,20 +221,20 @@ class config(confStack):
 			except Exception as e:
 				err=_("Failed when writing conffig: %s")%e
 			if err==0:
-				self.showMsg(_("Working... it could take some minutes. Please don't close this window"),'error')
+				#self.showMsg(_("Working... it could take some minutes. Please don't close this window"),'error')
 				self.setDisabled(True)
 				self.installer.start()
 				self.installer.finished.connect(self._finishProcess)
 	#def writeConfig
 
 	def _finishProcess(self):
-		self.showMsg("")
+		#self.showMsg("")
 		self.setEnabled(True)
 		time.sleep(1)
-		if self.installer.err==False:
-			self.showMsg(_("Openmeetings configuration updated"))
-		else:
-			self.showMsg("%s"%self.installer.errMsg)
+		#if self.installer.err==False:
+		#	self.showMsg(_("Openmeetings configuration updated"))
+		#else:
+		#	self.showMsg("%s"%self.installer.errMsg)
 
 	def _setCss(self):
 		css="""
