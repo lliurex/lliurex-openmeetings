@@ -2,9 +2,9 @@
 import sys
 import os
 import subprocess
-from PyQt5.QtWidgets import QApplication, QSlider, QLabel, QWidget, QPushButton,QVBoxLayout,QCheckBox,QGridLayout,QHBoxLayout,QComboBox,QCheckBox, QListWidget,QFileDialog,QFrame
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt,QSize
+from PySide2.QtWidgets import QApplication, QSlider, QLabel, QWidget, QPushButton,QVBoxLayout,QCheckBox,QGridLayout,QHBoxLayout,QComboBox,QCheckBox, QListWidget,QFileDialog,QFrame
+from PySide2 import QtGui
+from PySide2.QtCore import Qt,QSize
 from appconfig.appConfigStack import appConfigStack as confStack
 from appconfig.appConfigN4d import appConfigN4d as n4d
 import tempfile
@@ -83,9 +83,9 @@ class daemon(confStack):
 			self.btn_service.setText(_("Start service"))
 			self.btn_service.setStyleSheet("background:green;color:black")
 
-		self.chk_startup.setCheckState(False)
+		self.chk_startup.setChecked(False)
 		if self._getServiceStatus():
-			self.chk_startup.setCheckState(True)
+			self.chk_startup.setChecked(True)
 		return True
 	#def _udpate_screen
 	
