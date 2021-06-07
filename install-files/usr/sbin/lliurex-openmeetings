@@ -1,16 +1,17 @@
-#!/usr/bin/python -u
+#!/usr/bin/python3
 
 import MySQLdb as mdb
 import sys
 
 import os
 import shutil
-import ConfigParser
+import configparser as ConfigParser
 
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
 from jinja2 import Template
-import xmlrpclib
+#import xmlrpclib
+import subprocess
 
 VAR_DIR="/var/lib/openmeetings/"
 BASE_DIR="/usr/share/lliurex-openmeetings/"
@@ -361,7 +362,8 @@ class LliurexOpenmeetings:
 		template=BASE_DIR+FILES_DIR
 		tpl_env = Environment(loader=FileSystemLoader(template))
 		ldap_template = tpl_env.get_template("lliurex_ldap.cfg")
-		
+		#REM This must be enabled when ldap works	
+		return()
 		client=xmlrpclib.ServerProxy("https://localhost:9779")
 		vars=client.get_variable_list("","VariablesManager",["CLIENT_LDAP_URI_NOSSL","LDAP_BASE_DN"])
 		#vars["CLIENT_LDAP_URI"]=vars["CLIENT_LDAP_URI_NOSSL"].replace("=",":")
@@ -431,8 +433,10 @@ class LliurexOpenmeetings:
 		
 		print("* Adding current LDAP users ...")
 		
-		c=xmlrpclib.ServerProxy("https://localhost:9779")
-		c.add_current_ldap_users(self.n4d_key,"LliurexOpenmeetings")
+
+		#c=xmlrpclib.ServerProxy("https://localhost:9779")
+		#c.add_current_ldap_users(self.n4d_key,"LliurexOpenmeetings")
+		subprocess.run(["n4d-client","-r","call","LliurexOpenmeetngs.add_current_ldap_users"])
 		
 		
 	#def add_ldap_users
@@ -527,7 +531,7 @@ class LliurexOpenmeetings:
 			
 			sys.exit(0)
 		except Exception as e:
-			print "[ERROR]",e
+			print ("[ERROR] {}".format(e))
 			sys.exit(1)
 			
 		
