@@ -1,0 +1,66 @@
+{
+	"SETUP": {
+		"type":"python",
+		"path":"LliurexOpenmeetings.py",
+		"class":"LliurexOpenmeetings"
+	},
+	"METHODS": {
+		"add_current_ldap_users":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		},
+		"add_user":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		},
+		"delete_user":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		},
+		"remote_initialization":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		},
+		"remote_service_start":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		},
+		"remote_service_stop":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		},
+		"remote_service_is_running":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins",
+				"teachers"
+			]
+		}
+	}
+}
+

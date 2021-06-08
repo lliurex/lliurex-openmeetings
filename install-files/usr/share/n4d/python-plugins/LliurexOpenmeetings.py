@@ -1,10 +1,14 @@
-import xmlrpclib
+#!/usr/bin/env python3
+#import xmlrpclib
 import os
 import sys
 import subprocess
 import MySQLdb as mdb
 import hashlib
 import tempfile
+import n4d.server.core as n4dcore
+import n4d.responses
+from n4d.utils import get_backup_name, n4d_mv
 
 
 class LliurexOpenmeetings:
@@ -12,6 +16,14 @@ class LliurexOpenmeetings:
 	STUDENT=1
 	TEACHER=3
 	
+
+	def __init__(self):
+		self.core=n4dcore.Core.get_core()
+		if __name__ == "__main__" :
+	
+			om=LliurexOpenmeetings()
+			om.add_current_ldap_users()
+
 	def mysql_password(str):
 	
 		pass1 = hashlib.md5(str).hexdigest()
@@ -21,30 +33,35 @@ class LliurexOpenmeetings:
 	
 	def get_ldap_students(self):
 		
-		c=xmlrpclib.ServerProxy("https://server:9779")
-		try:
-			lst=c.get_student_list(self.n4d_key,"Golem")
-		
-			if type(lst) != type([]):
-				return []
-			return lst
-		except Exception as e:
-			print e
-			return []
+		students=self.core.get_plugin('Golem').get_student_list()
+		return n4d.responses.build_successful_call_response(students)
+
+		#c=xmlrpclib.ServerProxy("https://server:9779")
+		#try:
+	#		lst=c.get_student_list(self.n4d_key,"Golem")
+	#	
+	#		if type(lst) != type([]):
+	#			return []
+	#		return lst
+	#	except Exception as e:
+	#		print e
+	#		return []
 		
 	#def get_ldap_students
 	
 	def get_ldap_teachers(self):
 		
-		c=xmlrpclib.ServerProxy("https://server:9779")
-		try:
-			lst=c.get_teacher_list(self.n4d_key,"Golem")
-			if type(lst) != type([]):
-				return []
-			return lst
-		except Exception as e:
-			print e
-			return []
+		teachers=self.core.get_plugin('Golem').get_teacher_list()
+		return n4d.responses.build_successful_call_response(teachers)
+#		c=xmlrpclib.ServerProxy("https://server:9779")
+#		try:
+#			lst=c.get_teacher_list(self.n4d_key,"Golem")
+#			if type(lst) != type([]):
+#				return []
+#			return lst
+#		except Exception as e:
+#			print e
+#			return []
 		
 	#def get_ldap_students
 	
@@ -63,13 +80,15 @@ class LliurexOpenmeetings:
 				for user in teacher_list:
 					self.add_user(user,self.TEACHER)	
 
-				return True
+				#return True
+				return n4d.responses.build_successful_call_response()
 				
-			except:
+			except Exception as e:
 				
-				return False
+				#return False
+				return n4d.responses.build_failed_call_response('',str(e))
 				
-		return False
+		return n4d.responses.build_failed_call_response('')
 		
 	#def add_current_ldap_users
 	
@@ -97,7 +116,7 @@ class LliurexOpenmeetings:
 				if data==None:
 					
 
-					print "* Adding %s to OpenMeetings ... "%login
+					print ("* Adding %s to OpenMeetings ... {}".format(login))
 					#query="INSERT INTO `om_user` VALUES (NULL,NULL,NOW(),1,'\0',NULL,NULL,'%s','\0',%s,NOW(),'%s',0,%s,'%s',NULL,%s,NULL,NOW(),NULL,1,'\0','\0','\1',NOW(),1,'Europe/Madrid','user',NULL,'','',NULL,NULL)"
 					query="INSERT INTO `om_user` VALUES (NULL,NULL,NOW(),'\0',NULL,NULL,NULL,'%s','\0',%s,NOW(),'%s',0,'%s',NULL,%s,NULL,NOW(),NULL,1,'\0','\0',1,NOW(),'Europe/Madrid','user',NULL,'','',NULL,NULL)"
 					#def_query=query%(firstname,language_id,lastname,level_id,login,password)
@@ -110,15 +129,15 @@ class LliurexOpenmeetings:
 					cur.execute("INSERT INTO organisation_users (user_id,organisation_id) VALUES (%s,2)"%id)
 					con.commit()
 					
-				return True
+				return n4d.responses.build_successful_call_response()
 				
 			except Exception as e:
 				
-				print e
-				return False
-				
+				print (e)
+				return n4d.responses.build_failed_call_response('',str(e))
 		
-		return False
+		return n4d.responses.build_failed_call_response('')
+		#return False
 	
 	#def add_student
 	
@@ -143,13 +162,16 @@ class LliurexOpenmeetings:
 				cur.execute(query)
 				con.commit()
 				
-				return True
+				#return True
+				return n4d.responses.build_successful_call_response()
 					
 			except Exception as e:
-				print e
-				return False
+				print (e)
+				#return False
+				return n4d.responses.build_failed_call_response('',str(e))
 					
-		return False
+		return n4d.responses.build_failed_call_response('')
+#		return False
 		
 	#def delete_user
 	
@@ -159,15 +181,16 @@ class LliurexOpenmeetings:
 			f=open("/etc/n4d/key")
 			self.n4d_key=f.readline().strip("\n")
 			f.close()
-			p=subprocess.Popen(["mysql_root_passwd -g"],shell=True,stdout=subprocess.PIPE)
-			output=p.communicate()[0].strip("\n")
+			p=subprocess.run(["mysql_root_passwd","-g"],capture_output=True)
+			#p=subprocess.Popen(["mysql_root_passwd -g"],shell=True,stdout=subprocess.PIPE)
+			#output=p.communicate()[0].strip("\n")
 			self.mysql_user="root"
-			self.mysql_passwd=output
+			self.mysql_passwd=p.stdout.decode().strip("\n")
 			
 			return True
 			
-		except:
-			print("You need root privileges")
+		except Exception as e:
+			print("You need root privileges: {}".format(e))
 			
 			return False
 			#sys.exit(0)
@@ -186,11 +209,14 @@ class LliurexOpenmeetings:
 		
 			output=subprocess.Popen(["lliurex-openmeetings -t %s"%file_path],shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE).communicate()
 		
-			return [True,output]
+			#return [True,output]
+			return n4d.responses.build_successful_call_response(output)
+					
 			
 		except Exception as e:
 			
-			return [False,str(e)]
+				#return [False,str(e)]
+			return n4d.responses.build_failed_call_response('',str(e))
 		
 		
 	#def remote_initialization
@@ -202,10 +228,12 @@ class LliurexOpenmeetings:
 		if state==1:
 			os.system("lliurex-openmeetings-service start")
 		
-			return [True,""]
+			#return [True,""]
+			return n4d.responses.build_successful_call_response()
 		else:
 			
-			return [False,"NOT_INITIALIZED"]
+				#return [False,"NOT_INITIALIZED"]
+			return n4d.responses.build_failed_call_response('',str("NOT_INITIALIZED"))
 		
 	#def remote_service_start()
 	
@@ -215,9 +243,11 @@ class LliurexOpenmeetings:
 		
 		if state==1:
 			os.system("lliurex-openmeetings-service stop")
-			return [True,""]
+			return n4d.responses.build_successful_call_response()
+			#return [True,""]
 		else:
-			return [False,"NOT_INITIALIZED"]
+			#return [False,"NOT_INITIALIZED"]
+			return n4d.responses.build_failed_call_response('',str("NOT_INITIALIZED"))
 		
 	#def remote_service_start()
 	
@@ -230,12 +260,15 @@ class LliurexOpenmeetings:
 		
 			p=subprocess.Popen(["lliurex-openmeetings-service status"],shell=True,stdout=subprocess.PIPE).communicate()
 			if "STOPPED" in p[0]:
-				return [False,""]
+					#return [False,""]
+				return n4d.responses.build_failed_call_response('',str("Stopped"))
 			else:
-				return [True,""]
+					#return [True,""]
+				return n4d.responses.build_successful_call_response()
 		
 		
-		return [False,-1]
+		#return [False,-1]
+		return n4d.responses.build_failed_call_response('',str("stopped"))
 		
 	#def remote_service_status
 	
@@ -244,7 +277,3 @@ class LliurexOpenmeetings:
 #class OMUsers
 
 
-if __name__ == "__main__" :
-	
-	om=LliurexOpenmeetings()
-	om.add_current_ldap_users()
