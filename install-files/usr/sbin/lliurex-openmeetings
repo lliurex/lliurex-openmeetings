@@ -82,6 +82,16 @@ class LliurexOpenmeetings:
 		if os.path.isdir(chk_dir):
 			cmd="mv %s/* %s"%(chk_dir,dest_dir)
 			os.system(cmd)
+		print("Fix admin.sh java options {}/admin.sh".format(dest_dir))
+		with open ("{}/admin.sh".format(dest_dir),"r") as f:
+			adminsh=f.readlines()
+		newadmin=[]
+		for line in adminsh:
+			if line.startswith("java"):
+				line=line.replace("java -cp","java --add-opens java.base/jdk.internal.misc=ALL-UNNAMED -Dio.netty.tryReflectionSetAccessible=true -cp")
+			newadmin.append(line)
+		with open ("{}/admin.sh".format(dest_dir),"w") as f:
+			f.writelines(newadmin)
 		
 	#def extract_tar
 	
@@ -436,7 +446,7 @@ class LliurexOpenmeetings:
 
 		#c=xmlrpclib.ServerProxy("https://localhost:9779")
 		#c.add_current_ldap_users(self.n4d_key,"LliurexOpenmeetings")
-		subprocess.run(["n4d-client","-r","call","LliurexOpenmeetngs.add_current_ldap_users"])
+		subprocess.run(["n4d-client","-r","call","LliurexOpenmeetings.add_current_ldap_users"])
 		
 		
 	#def add_ldap_users
