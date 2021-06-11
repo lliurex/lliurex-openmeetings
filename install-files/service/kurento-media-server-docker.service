@@ -1,12 +1,11 @@
 [Unit]
-Description=Starts openmeetings server
+Description=Starts docker for kurento media server
 After=apache2.service
 Requires=apache2.service
-Wants=kurento-media-server-docker.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/n4d-client -r -c LliurexOpenmeetings -m remote_service_start
+ExecStart=/usr/bin/docker run -d --name kms --network host kurento/kurento-media-server:latest
 Restart=always
 RestartSec=2
 RestartPreventExitStatus=0
@@ -15,4 +14,4 @@ StartLimitBurst=9
 
 [Install]
 WantedBy=multi-user.target
-Alias=lliurex-openmeetings.service
+Alias=kurento-media-server-docker.service
