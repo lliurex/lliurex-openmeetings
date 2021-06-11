@@ -223,7 +223,11 @@ class LliurexOpenmeetings:
 	
 	def remote_service_start(self):
 		
-		state=objects["ZCenterVariables"].get_state("lliurex-openmeetings")
+		#state=objects["ZCenterVariables"].get_state("lliurex-openmeetings")
+		states=self.core.get_variable("ZEROCENTER")
+		returnStates=states.get("return",{})
+		om_state=returnStates.get("lliurex-openmeetings",{})
+		state=om_state.get("state",0)
 		
 		if state==1:
 			os.system("lliurex-openmeetings-service start")
@@ -239,7 +243,10 @@ class LliurexOpenmeetings:
 	
 	def remote_service_stop(self):
 		
-		state=objects["ZCenterVariables"].get_state("lliurex-openmeetings")
+		states=self.core.get_variable("ZEROCENTER")
+		returnStates=states.get("return",{})
+		om_state=returnStates.get("lliurex-openmeetings",{})
+		state=om_state.get("state",0)
 		
 		if state==1:
 			os.system("lliurex-openmeetings-service stop")
