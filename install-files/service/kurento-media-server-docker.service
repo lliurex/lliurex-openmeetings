@@ -1,0 +1,17 @@
+[Unit]
+Description=Starts docker for kurento media server
+After=apache2.service
+Requires=apache2.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run -d --name kms --network host kurento/kurento-media-server:latest
+Restart=always
+RestartSec=2
+RestartPreventExitStatus=0
+StartLimitInterval=200
+StartLimitBurst=9
+
+[Install]
+WantedBy=multi-user.target
+Alias=kurento-media-server-docker.service
