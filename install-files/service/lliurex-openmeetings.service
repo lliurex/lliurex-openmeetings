@@ -2,7 +2,7 @@
 Description=Starts openmeetings server
 After=apache2.service
 Requires=apache2.service
-Wants=kurento-media-server.service
+Wants=kurento-media-server-docker.service
 
 [Service]
 Type=simple
