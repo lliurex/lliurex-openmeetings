@@ -97,9 +97,9 @@ class daemon(confStack):
 		subprocess.run(cmd)
 		
 		if self.chk_kurento.checkState():
-			cmd=["/bin/systemctl","disable","kurento-media-server"]
+			cmd=["/bin/systemctl","disable","kurento-media-server-docker"]
 		else:
-			cmd=["/bin/systemctl","enable","kurento-media-server"]
+			cmd=["/bin/systemctl","enable","kurento-media-server-docker"]
 		subprocess.run(cmd)
 		return True
 	#def writeConfig
